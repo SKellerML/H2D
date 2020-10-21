@@ -1,0 +1,2 @@
+# ignore dll that were used for testing
+msvc*.dll
