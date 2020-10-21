@@ -1,0 +1,13 @@
+#version 410
+
+uniform mat4 ProjectionMatrix;
+uniform mat4 ModelViewMatrix;
+
+in vec2 VertexPos2D;
+
+out vec4 gl_Position;
+
+void main() 
+{ 
+	gl_Position = ProjectionMatrix * ModelViewMatrix * vec4(VertexPos2D.x,VertexPos2D.y,0.f,1.0); 
+}

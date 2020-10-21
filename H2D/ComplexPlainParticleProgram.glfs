@@ -1,0 +1,73 @@
+#version 330
+
+uniform sampler2D TextureUnit; 
+
+uniform vec4 startColor = vec4(1.0f,1.0f,1.f,0.8f);;
+uniform vec4 endColor = vec4(1.0f,0.0f,0.f,0.8f);;
+
+in float opacity;
+out vec4 gl_FragColor;
+
+
+void main () {
+
+	/*
+	vec4 fragcolor=vec4(startColor.xyz,startColor.a*opacity);
+
+	gl_FragColor = fragcolor;
+	*/
+
+	vec4 colour = endColor+(startColor-endColor)*opacity ;       //(lifetime-deltaT)/2*(particle_colour-particle_colour2)/lifetime+particle_colour2;
+	colour.a=opacity;
+	gl_FragColor = colour;//rotatedTexture*particle_colour;//particle_colour;
+	
+	//if (gl_FragColor.a < 0.1f) discard;
+        
+	/*
+	
+
+	if(shouldDiscard > 0.5)	 discard;	
+
+
+
+  float vRotation = angularMovement_OUT.x+angularMovement_OUT.y*deltaT;//0.0;//3.1415926535/2;
+
+	float mid = 0.5;
+	//vec2 rotated = vec2(cos(vRotation) * (gl_PointCoord.x - mid) + sin(vRotation) * (gl_PointCoord.y - mid) + mid,
+    //                    cos(vRotation) * (gl_PointCoord.y - mid) - sin(vRotation) * (gl_PointCoord.x - mid) + mid);
+	//vec4 rotatedTexture = texture2D( TextureUnit,  rotated);
+  
+	
+
+	vec4 colour = particle_colourStart+(particle_colourEnd-particle_colourStart)*deltaT ;//(lifetime-deltaT)/2*(particle_colour-particle_colour2)/lifetime+particle_colour2;
+	colour.a=opacity;
+	frag_colour = colour;//rotatedTexture*particle_colour;//particle_colour;
+
+	*/
+}
+
+/*	Sprite Sheet
+
+varying mediump vec2 TextureCoord;
+varying mediump vec2 TextureSize;
+uniform sampler2D Sampler;
+
+void main(void)
+{
+    // This is where the magic happens.  Combine all three factors to render
+    // just a portion of the sprite-sheet for this point
+    mediump vec2 realTexCoord = TextureCoord + (gl_PointCoord * TextureSize);
+    mediump vec4 fragColor = texture2D(Sampler, realTexCoord);
+
+    // Optional, emulate GL_ALPHA_TEST to use transparent images with
+    // point sprites without worrying about z-order.
+    // see: http://stackoverflow.com/a/5985195/806988
+    if(fragColor.a == 0.0){
+        discard;
+    }
+
+    gl_FragColor = fragColor;
+}
+
+*/
+

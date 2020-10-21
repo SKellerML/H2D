@@ -1,0 +1,93 @@
+#version 130
+
+in vec2 v_i; // initial velocity
+in vec2 angularMovement;
+in vec2 start_time;
+
+// =vec2(960.f,540.f); // emitter position in world coordinates
+
+uniform mat4 ProjectionMatrix, ModelViewMatrix; 
+uniform vec2 emitterPosWorld;
+uniform float elapsedSystemTime; // system time in seconds
+
+uniform bool ongoingEmitting;
+
+
+// the fragment shader can use this for it's output colour's alpha component 
+out vec2 angularMovement_OUT;
+out float opacity;
+out vec4 gl_Position;
+out float deltaT;
+out float shouldDiscard;
+
+void main() {
+  // work out the elapsed time for _this particle_ after its start time
+  float t = elapsedSystemTime - start_time.x;
+
+  shouldDiscard=0.0;
+
+	if(ongoingEmitting)
+	{
+		if(t < start_time.y)	shouldDiscard=1.0;
+		else	shouldDiscard=0.0;
+
+	  // allow time to loop around so particle emitter keeps going
+	   t = mod (t, start_time.y);
+	}
+  opacity = 0.0;
+
+
+
+  // gravity
+  vec2 p = emitterPosWorld;
+  vec2 a = vec2 (0.0, 0.0);
+  
+  // this is a standard kinematics equation of motion with velocity and
+  // acceleration (gravity)
+  
+  p += (v_i * t) + 5.0 * a * t * t;
+  
+  // gradually make particle fade to invisible over 3 seconds
+  opacity = 1.0 - (t / start_time.y);
+
+  angularMovement_OUT=angularMovement;
+  deltaT = t;
+
+  gl_Position = ProjectionMatrix * ModelViewMatrix * vec4(p,0.f, 1.0);
+  gl_PointSize = 10.0; // size in pixels
+  
+}
+
+/*	Sprite Sheet
+
+
+//http://stackoverflow.com/questions/9609423/applying-part-of-a-texture-sprite-sheet-texture-map-to-a-point-sprite-in-ios
+uniform mat4 Projection;
+uniform mat4 Modelview;
+// The radius of the point in OpenGL units, eg: "20.0"
+uniform float PointSize;
+// The size of the sprite being rendered. My sprites are square
+// so I'm just passing in a float.  For non-square sprites pass in
+// the width and height as a vec2.
+uniform float TextureCoordPointSize;
+
+attribute vec4 Position;
+attribute vec4 ObjectCenter;
+// The top left corner of a given sprite in the sprite-sheet
+attribute vec2 TextureCoordIn;
+
+varying vec2 TextureCoord;
+varying vec2 TextureSize;
+
+void main(void)
+{
+    gl_Position = Projection * Modelview * Position;
+    TextureCoord = TextureCoordIn;
+    TextureSize = vec2(TextureCoordPointSize, TextureCoordPointSize);
+
+    // This is optional, it is a quick and dirty way to make the points stay the same
+    // size on the screen regardless of distance.
+    gl_PointSize = PointSize / Position.w;
+}
+
+*/

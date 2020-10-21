@@ -1,0 +1,48 @@
+#version 330
+
+uniform sampler2D TextureUnit; 
+uniform vec4 TextureColor = vec4(1.0f,1.0f,1.f,0.8f);
+
+in vec2 texCoord;
+in float opacity;
+out vec4 gl_FragColor;
+
+
+void main () {
+
+	vec4 fragmentColor = texture(TextureUnit,texCoord)*vec4(TextureColor.xyz,TextureColor.a*opacity);
+
+	gl_FragColor = fragmentColor;
+
+	if (gl_FragColor.a < 0.1f) discard;
+        
+	//gl_FragColor = vec4(0.5f,0.5f,1.f,1.f);
+
+	//gl_FragColor = vec4(1.f,1.f,1.f,1.f);
+}
+
+/*	Sprite Sheet
+
+varying mediump vec2 TextureCoord;
+varying mediump vec2 TextureSize;
+uniform sampler2D Sampler;
+
+void main(void)
+{
+    // This is where the magic happens.  Combine all three factors to render
+    // just a portion of the sprite-sheet for this point
+    mediump vec2 realTexCoord = TextureCoord + (gl_PointCoord * TextureSize);
+    mediump vec4 fragColor = texture2D(Sampler, realTexCoord);
+
+    // Optional, emulate GL_ALPHA_TEST to use transparent images with
+    // point sprites without worrying about z-order.
+    // see: http://stackoverflow.com/a/5985195/806988
+    if(fragColor.a == 0.0){
+        discard;
+    }
+
+    gl_FragColor = fragColor;
+}
+
+*/
+

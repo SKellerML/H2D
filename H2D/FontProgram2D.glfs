@@ -1,0 +1,15 @@
+#version 130
+
+uniform vec4 TextColor;
+uniform sampler2D TextureUnit;
+
+in vec2 TexCoord;
+out vec4 gl_FragColor;
+
+
+void main() 
+{
+	vec4 red = texture(TextureUnit,TexCoord);
+
+	gl_FragColor = vec4(1.0, 1.0, 1.0, red.r)*TextColor;
+}

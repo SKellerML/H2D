@@ -1,0 +1,66 @@
+#version 330
+
+uniform mat4 ProjectionMatrix, ModelViewMatrix;
+
+const float PI = 3.14159265358979323846264;
+
+
+layout(location=0) in vec2 vertex;	// Vec 4 to store tex Coords too?
+layout(location=1) in vec4 particlePosition;	// position x,y, | angle | opacity
+layout(location=2) in vec2 textureCoord;
+
+out vec2 texCoord;
+out float opacity;
+out vec4 gl_Position;
+
+void main() {
+	
+
+	float angle = particlePosition.z;
+	float rad_angle = angle*PI/180.0;
+
+	vec2 ppp;
+
+	ppp.x = vertex.x*cos(rad_angle) - vertex.y*sin(rad_angle);
+	ppp.y = vertex.y*cos(rad_angle) + vertex.x*sin(rad_angle);
+
+	vec2 pos = ppp + particlePosition.xy;
+
+	texCoord=textureCoord;
+	opacity=particlePosition.w;
+	gl_Position = ProjectionMatrix * ModelViewMatrix * vec4(pos.x,pos.y,0.0,1.0);//*vec4(particlePosition.xy,0.0,1.0);
+}
+
+/*	Sprite Sheet
+
+
+//http://stackoverflow.com/questions/9609423/applying-part-of-a-texture-sprite-sheet-texture-map-to-a-point-sprite-in-ios
+uniform mat4 Projection;
+uniform mat4 Modelview;
+// The radius of the point in OpenGL units, eg: "20.0"
+uniform float PointSize;
+// The size of the sprite being rendered. My sprites are square
+// so I'm just passing in a float.  For non-square sprites pass in
+// the width and height as a vec2.
+uniform float TextureCoordPointSize;
+
+attribute vec4 Position;
+attribute vec4 ObjectCenter;
+// The top left corner of a given sprite in the sprite-sheet
+attribute vec2 TextureCoordIn;
+
+varying vec2 TextureCoord;
+varying vec2 TextureSize;
+
+void main(void)
+{
+    gl_Position = Projection * Modelview * Position;
+    TextureCoord = TextureCoordIn;
+    TextureSize = vec2(TextureCoordPointSize, TextureCoordPointSize);
+
+    // This is optional, it is a quick and dirty way to make the points stay the same
+    // size on the screen regardless of distance.
+    gl_PointSize = PointSize / Position.w;
+}
+
+*/

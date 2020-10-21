@@ -1,0 +1,11 @@
+#version 130
+
+uniform vec4 PlainColor;
+
+out vec4 gl_FragColor;
+
+
+void main() 
+{
+	gl_FragColor = PlainColor;
+}

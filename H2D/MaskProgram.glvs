@@ -1,0 +1,19 @@
+#version 410
+
+uniform mat4 ProjectionMatrix;
+uniform mat4 ModelViewMatrix;
+uniform float backgroundZ;
+
+in vec2 VertexPos2D;
+in vec2 TextureCoord;
+
+out vec2 TexCoord;
+out vec4 gl_Position;
+
+void main() 
+{ 
+	TexCoord = TextureCoord;
+
+	gl_Position = ProjectionMatrix * ModelViewMatrix * vec4(VertexPos2D.x,VertexPos2D.y,backgroundZ,1.0); 
+
+}

@@ -1,0 +1,22 @@
+#version 410
+
+uniform vec4 TextureColor;
+uniform sampler2D backgroundTexture;
+uniform sampler2D foregroundTexture;
+uniform sampler2D maskTexture;
+
+in vec2 TexCoord;
+out vec4 gl_FragColor;
+ 
+
+void main() 
+{
+	vec4 vMask = texture2D(maskTexture,TexCoord);
+	vec4 vColor_1 = texture2D(backgroundTexture,TexCoord);
+	vec4 vColor_2 = texture2D(foregroundTexture,TexCoord);
+	
+	gl_FragColor = mix(vColor_2,vColor_1,vMask.r); //texture(TextureUnit,TexCoord)*TextureColor;
+	//gl_FragColor = mix(vColor_1,vec4(0.f,0.f,0.f,0.f),vMask.r);
+	//gl_FragColor = vColor_1;
+	//gl_FragColor = vMask;//vec4(vMask.rgb,1.f);//texture2D(foregroundTexture,TexCoord);
+}

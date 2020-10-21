@@ -1,0 +1,87 @@
+<BINDINGS>
+    <GAME>
+        <MOUSE>
+            <ACTIONS>
+                <A key="1"/>
+                <A key="0"/>
+            </ACTIONS>
+            <STATES>
+                <S key="1"/>
+                <S key="0"/>
+            </STATES>
+        </MOUSE>
+        <KEYS>
+            <ACTIONS>
+                <A key="267"/>
+                <A key="266"/>
+            </ACTIONS>
+            <STATES>
+                <S key="340"/>
+                <S key="83"/>
+                <S key="87"/>
+                <S key="68"/>
+                <S key="65"/>
+            </STATES>
+        </KEYS>
+    </GAME>
+    <GAME>
+        <MOUSE>
+            <ACTIONS>
+                <A key="1"/>
+                <A key="0"/>
+            </ACTIONS>
+            <STATES>
+                <S key="1"/>
+                <S key="0"/>
+            </STATES>
+        </MOUSE>
+        <KEYS>
+            <ACTIONS>
+                <A key="48"/>
+                <A key="57"/>
+                <A key="56"/>
+                <A key="55"/>
+                <A key="54"/>
+                <A key="53"/>
+                <A key="52"/>
+                <A key="51"/>
+                <A key="50"/>
+                <A key="49"/>
+                <A key="69"/>
+                <A key="256"/>
+            </ACTIONS>
+            <STATES>
+                <S key="341"/>
+                <S key="340"/>
+                <S key="83"/>
+                <S key="87"/>
+                <S key="68"/>
+                <S key="65"/>
+            </STATES>
+        </KEYS>
+    </GAME>
+    <GUI>
+        <MOUSE>
+            <ACTIONS>
+                <A key="0"/>
+            </ACTIONS>
+            <STATES>
+                <S key="0"/>
+            </STATES>
+        </MOUSE>
+        <KEYS>
+            <ACTIONS>
+                <A key="262"/>
+                <A key="263"/>
+                <A key="265"/>
+                <A key="264"/>
+                <A key="257"/>
+            </ACTIONS>
+            <STATES>
+                <S key="259"/>
+                <S key="344"/>
+                <S key="340"/>
+            </STATES>
+        </KEYS>
+    </GUI>
+</BINDINGS>
