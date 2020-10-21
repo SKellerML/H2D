@@ -6,6 +6,6 @@ This is a rather old personal project of mine. Using OpenGL, DevIL (Image loadin
 - Grid based word
 - Destructible walls
 - A* pathfinding
-- You only see what the player would see (Accomplished using masks)
+- You only see what the player would see (Nowadays many games have similar features, see Among Us or Ape Out for a more visual description)
 - Working Menu Buttons
 - Weapons/Gadgets
