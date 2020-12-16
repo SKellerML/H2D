@@ -19,8 +19,13 @@ TickCounter Mask::tc;
 Texture2D Mask::fovMap;
 b2Vec2 Mask::maskCenterPosition;
 
-bool SortVector(b2Vec3 i, b2Vec3 j)	{ return ((i.z < j.z)); }	// b2_pi > (i.z - j.z) < b2_pi; || -b2_pi > (i.z - j.z) < b2_pi
-bool CompareVectorZ(b2Vec3 i, b2Vec3 j)	{ return (i.z == j.z); }
+bool SortVector(b2Vec3 i, b2Vec3 j)	{ 
+	return ((i.z < j.z)); 
+}	// b2_pi > (i.z - j.z) < b2_pi; || -b2_pi > (i.z - j.z) < b2_pi
+
+bool CompareVectorZ(b2Vec3 i, b2Vec3 j)	{ 
+	return (i.z == j.z); 
+}
 
 
 GLuint manhattanDistance(b2Vec2 t1, b2Vec2 t2)
@@ -214,11 +219,11 @@ void Mask::updateMask(b2Vec2 centerPosition, std::shared_ptr<b2World> world)
 				{
 					poly = (b2PolygonShape*)shape;
 
-					numberOfVertices = poly->GetVertexCount();
+					numberOfVertices = poly->m_count;
 
 					for (int c = numberOfVertices - 1; c >= 0; c--)
 					{
-						testArr[c].Set(atan2(body->GetWorldPoint(poly->GetVertex(c)).x - pPoint.x, body->GetWorldPoint(poly->GetVertex(c)).y - pPoint.y), b2Distance(pPoint, body->GetWorldPoint(poly->GetVertex(c))));
+						testArr[c].Set(atan2(body->GetWorldPoint(poly->m_vertices[c]).x - pPoint.x, body->GetWorldPoint(poly->m_vertices[c]).y - pPoint.y), b2Distance(pPoint, body->GetWorldPoint(poly->m_vertices[c])));
 					}
 
 					for (int c = numberOfVertices - 1; c >= 0; c--)
@@ -253,7 +258,7 @@ void Mask::updateMask(b2Vec2 centerPosition, std::shared_ptr<b2World> world)
 
 							//if (castt.isHit) g_debugDraw.DrawSegment(pPoint, castt.hitPoint, b2Color(0.f, 1.f, 0.f, 1.f));
 							//g_debugDraw.DrawPoint( body->GetWorldPoint( poly->GetVertex(u) ), 5.f, b2Color(1.f, 0.f, 0.f, 1.f));
-							b2Vec2 vertex = body->GetWorldPoint(poly->GetVertex(u));
+							b2Vec2 vertex = body->GetWorldPoint(poly->m_vertices[u]);
 
 							//g_debugDraw.DrawPoint(castt.hitPoint, 3, b2Color(0.f, 0.f, 1.f));
 
@@ -537,7 +542,7 @@ void Mask::renderMask(b2Vec2 wp, GLuint backRenderTexture, GLuint frontRenderTex
 
 
 	maskP.bind();
-	maskP.setModelViewMatrix(glm::translate<GLfloat>(960.f, 540.f, 0.f));//960.f+BaseObject::getWorldPos().x, 540.f+BaseObject::getWorldPos().y, 0.f));
+	maskP.setModelViewMatrix(glm::translate<GLfloat>(glm::vec3(960.f, 540.f, 0.f)));//960.f+BaseObject::getWorldPos().x, 540.f+BaseObject::getWorldPos().y, 0.f));
 	maskP.updateModelViewMatrix();
 	glBindVertexArray(mVAOID);
 

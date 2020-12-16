@@ -1,6 +1,6 @@
 ﻿#include "Element2D.h"
-#include <gtx\transform.hpp>
-#include <glm.hpp>
+#include <glm\gtx\transform.hpp>
+#include <glm\glm.hpp>
 
 #include "VertexPos2D.h"
 
@@ -181,8 +181,8 @@ void ElementLines::render(b2Vec2 pos,GLfloat angle)
 	elementProgram.setProjectionMatrix(glm::ortho<GLfloat>(0.5f,1920.5f,1080.5f,0.5f,-1.f,1.f));
 	elementProgram.updateProjectionMatrix();
 
-	elementProgram.setModelViewMatrix(glm::translate<GLfloat>(pos.x,pos.y,0.f));
-	elementProgram.leftMultModelView(glm::rotate<GLfloat>(angle,0.f,0.f,1.f));
+	elementProgram.setModelViewMatrix(glm::translate<GLfloat>( glm::vec3(pos.x,pos.y,0.f)));
+	elementProgram.leftMultModelView(glm::rotate<GLfloat>(angle,glm::vec3(0.f, 0.f, 1.f)));
 	elementProgram.updateModelViewMatrix();
 	if(amountOfVertices > 1)
 	{
@@ -262,8 +262,8 @@ void ElementPolygon::render(b2Vec2 pos,GLfloat angle)
 	elementProgram.bind();
 	
 	
-	elementProgram.setModelViewMatrix(glm::translate<GLfloat>(pos.x, pos.y, 0.f));
-	elementProgram.leftMultModelView(glm::rotate<GLfloat>(angle, 0.f, 0.f, 1.f));
+	elementProgram.setModelViewMatrix(glm::translate<GLfloat>( glm::vec3(pos.x, pos.y, 0.f)));
+	elementProgram.leftMultModelView(glm::rotate<GLfloat>(angle, glm::vec3(0.f, 0.f, 1.f)));
 	elementProgram.updateModelViewMatrix();
 
 	if(amountOfVertices > 1)

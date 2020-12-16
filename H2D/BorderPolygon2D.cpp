@@ -1,6 +1,7 @@
 #include "BorderPolygon2D.h"
 
-#include <gtc\type_ptr.hpp>
+#include <glm\gtc\type_ptr.hpp>
+//#include <gtc\type_ptr.hpp>
 
 BorderPolygon2D::BorderPolygon2D(void)
 {

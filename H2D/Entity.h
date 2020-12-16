@@ -6,11 +6,11 @@
 #include "TickCounter.h"
 #include "GameState.h"
 
-extern "C"{
-	#include "lua.h"
-	#include "lualib.h"
-	#include "lauxlib.h"
-}
+//extern "C"{
+//	#include "lua.h"
+//	#include "lualib.h"
+//	#include "lauxlib.h"
+//}
 
 struct entity_object
 {
@@ -44,8 +44,8 @@ public:
 	//void destroyWall()	{ world->DestroyBody(body); }
 
 
-	static void loadEntities();
-	static void deleteEntities();
+	//static void loadEntities();
+	//static void deleteEntities();
 
 protected:
 	ElementPolygon polpol;
@@ -53,7 +53,7 @@ protected:
 	int m_id;
 	b2Vec2 m_position;
 
-	static lua_State* luaStateEntity;
+	//static lua_State* luaStateEntity;
 
 	static GLuint sheetEntityID;
 	static SpriteSheet2D* sheetEntity;

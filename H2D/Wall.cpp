@@ -32,14 +32,16 @@ void Wall::init(b2Vec2 startPos, b2Vec2 targetPos)
 	fd.shape = &shape;
 	fd.density = 1.f;
 	fd.filter.categoryBits = COLLISIONOBJECTTYPE_WALL;
-	fd.userData = &gameobjectType;
+
+	fd.userData.pointer =  uintptr_t(&gameobjectType);
 	body->CreateFixture(&fd);
 
 	std::vector<b2Vec2> vs;
-	vs.push_back(100 * body->GetWorldPoint(shape.GetVertex(0)));
-	vs.push_back(100 * body->GetWorldPoint(shape.GetVertex(1)));
-	vs.push_back(100 * body->GetWorldPoint(shape.GetVertex(2)));
-	vs.push_back(100 * body->GetWorldPoint(shape.GetVertex(3)));
+	
+	vs.push_back(100 * body->GetWorldPoint(shape.m_vertices[0]));
+	vs.push_back(100 * body->GetWorldPoint(shape.m_vertices[1]));
+	vs.push_back(100 * body->GetWorldPoint(shape.m_vertices[2]));
+	vs.push_back(100 * body->GetWorldPoint(shape.m_vertices[3]));
 
 	bool showDebugColors = true;
 	GLfloat randCol[3];

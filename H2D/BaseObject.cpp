@@ -79,7 +79,7 @@ void BaseObject::deleteSheets()
 {
 	sheetList.clear();
 }
-GLuint BaseObject::addSprite(Rect &obj,GLuint sheet)
+GLuint BaseObject::addSprite(Rect obj,GLuint sheet)
 {
 	GLuint c = sheetList[sheet].addClipSprite(obj);
 	return c;
@@ -124,7 +124,7 @@ void BaseObject::initObject(GLuint gameObjectType, GLuint collisionObjectType, b
 	bodyDefinition.type = bodyType;
 
 	bodyDefinition.position.Set(position.x,position.y);
-	bodyDefinition.userData = obj;//data;
+	bodyDefinition.userData.pointer = uintptr_t(obj);
 	bodyDefinition.linearDamping = 10.f;
 	bodyDefinition.angularDamping = 5.f;
 
@@ -146,7 +146,7 @@ void BaseObject::initObject(GLuint gameObjectType, GLuint collisionObjectType, b
 	fixture.density=0.5;
 	fixture.friction=friction;
 	fixture.restitution=restitution;
-	fixture.userData = &objectID; //see setObject
+	fixture.userData.pointer = uintptr_t(&objectID); //see setObject
 	fixture.filter.categoryBits = collisionObjectType;
 
 	switch(collisionObjectType)
@@ -199,7 +199,7 @@ void BaseObject::initPolygon(GLuint gameObjectType, GLuint collisionObjectType, 
 	b2BodyDef bodyDefinition;
 	bodyDefinition.type = bodyType;
 	bodyDefinition.position.Set(position.x-halfSize.x,position.y+halfSize.y);
-	bodyDefinition.userData = obj;//data;
+	bodyDefinition.userData.pointer = uintptr_t( obj );//data;
 	bodyDefinition.angularDamping = 0.5f;
 	bodyDefinition.angle = (angle*2*b2_pi)/360;
 	if (floor < 0 || floor >= worldContainer->size())
@@ -218,7 +218,7 @@ void BaseObject::initPolygon(GLuint gameObjectType, GLuint collisionObjectType, 
 	fixture.density=0.5;
 	fixture.friction=friction;
 	fixture.restitution=restitution;
-	fixture.userData = &objectID; // see setObject
+	fixture.userData.pointer = uintptr_t( &objectID ); // see setObject
 	fixture.filter.categoryBits = collisionObjectType;
 
 	switch (collisionObjectType)
@@ -242,7 +242,7 @@ void BaseObject::initPolygon(GLuint gameObjectType, GLuint collisionObjectType, 
 
 	polygon.Set(vs,numberOfVertices);
 	fixture.shape = &polygon;
-	fixture.userData = &standardFixtureValue;
+	fixture.userData.pointer = uintptr_t( &standardFixtureValue );
 
 	body->CreateFixture(&fixture);
 

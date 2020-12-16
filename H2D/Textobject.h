@@ -11,7 +11,7 @@ public:
 	Textobject(void);
 	~Textobject(void);
 
-	static void Textobject::setFont(Font2D* f);
+	static void setFont(Font2D* f);
 
 	void create(float x, float y,std::string t, float size);
 	RectSize createBox(float x, float y, std::string t,float size);

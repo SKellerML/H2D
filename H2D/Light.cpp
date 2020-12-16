@@ -9,6 +9,13 @@ GLuint Light::lightMaskBuf;
 Texture2D Light::backgroundLight;
 GLuint Light::lightTextureID;
 
+//bool SortVector(b2Vec3 i, b2Vec3 j) {
+//	return ((i.z < j.z));
+//}	// b2_pi > (i.z - j.z) < b2_pi; || -b2_pi > (i.z - j.z) < b2_pi
+//
+//bool CompareVectorZ(b2Vec3 i, b2Vec3 j) {
+//	return (i.z == j.z);
+//}
 
 void Light::initLightRendering()
 {
@@ -164,11 +171,11 @@ void PointLight::updateLight(b2Vec2 pos,GLfloat angle)
 			{
 				poly = (b2PolygonShape*)shape;
 
-				numberOfVertices = poly->GetVertexCount();
+				numberOfVertices = poly->m_count;// GetVertexCount();
 
 				for (int c = numberOfVertices - 1; c >= 0; c--)
 				{
-					testArr[c].Set(atan2(body->GetWorldPoint(poly->GetVertex(c)).x - pPoint.x, body->GetWorldPoint(poly->GetVertex(c)).y - pPoint.y), b2Distance(pPoint, body->GetWorldPoint(poly->GetVertex(c))));
+					testArr[c].Set(atan2(body->GetWorldPoint(poly->m_vertices[c]).x - pPoint.x, body->GetWorldPoint(poly->m_vertices[c]).y - pPoint.y), b2Distance(pPoint, body->GetWorldPoint(poly->m_vertices[c])));
 				}
 
 				for (int c = numberOfVertices - 1; c >= 0; c--)
@@ -203,7 +210,7 @@ void PointLight::updateLight(b2Vec2 pos,GLfloat angle)
 
 						//if (castt.isHit) g_debugDraw.DrawSegment(pPoint, castt.hitPoint, b2Color(0.f, 1.f, 0.f, 1.f));
 						//g_debugDraw.DrawPoint( body->GetWorldPoint( poly->GetVertex(u) ), 5.f, b2Color(1.f, 0.f, 0.f, 1.f));
-						b2Vec2 vertex = body->GetWorldPoint(poly->GetVertex(u));
+						b2Vec2 vertex = body->GetWorldPoint(poly->m_vertices[u]);
 
 						//g_debugDraw.DrawPoint(castt.hitPoint, 3, b2Color(0.f, 0.f, 1.f));
 
@@ -511,11 +518,11 @@ void SpotLight::updateLight(b2Vec2 pos, GLfloat lightAngle, GLfloat angle)
 			{
 				poly = (b2PolygonShape*)shape;
 
-				numberOfVertices = poly->GetVertexCount();
+				numberOfVertices = poly->m_count;
 
 				for (int c = numberOfVertices - 1; c >= 0; c--)
 				{
-					testArr[c].Set(atan2(body->GetWorldPoint(poly->GetVertex(c)).x - pPoint.x, body->GetWorldPoint(poly->GetVertex(c)).y - pPoint.y), b2Distance(pPoint, body->GetWorldPoint(poly->GetVertex(c))));
+					testArr[c].Set(atan2(body->GetWorldPoint(poly->m_vertices[c]).x - pPoint.x, body->GetWorldPoint(poly->m_vertices[c]).y - pPoint.y), b2Distance(pPoint, body->GetWorldPoint(poly->m_vertices[c])));
 				}
 
 				for (int c = numberOfVertices - 1; c >= 0; c--)
@@ -550,7 +557,7 @@ void SpotLight::updateLight(b2Vec2 pos, GLfloat lightAngle, GLfloat angle)
 
 						//if (castt.isHit) g_debugDraw.DrawSegment(pPoint, castt.hitPoint, b2Color(0.f, 1.f, 0.f, 1.f));
 						//g_debugDraw.DrawPoint( body->GetWorldPoint( poly->GetVertex(u) ), 5.f, b2Color(1.f, 0.f, 0.f, 1.f));
-						b2Vec2 vertex = body->GetWorldPoint(poly->GetVertex(u));
+						b2Vec2 vertex = body->GetWorldPoint(poly->m_vertices[u]);
 
 						//g_debugDraw.DrawPoint(castt.hitPoint, 3, b2Color(0.f, 0.f, 1.f));
 

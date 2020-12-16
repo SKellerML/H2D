@@ -2,7 +2,7 @@
 
 #include "ShaderProgram.h"
 #include "Rect.h"
-#include <glm.hpp>
+#include <glm\glm.hpp>
 
 class ElementProgram : public ShaderProgram
 {

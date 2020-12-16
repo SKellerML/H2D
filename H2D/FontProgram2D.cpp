@@ -1,10 +1,10 @@
 #include "FontProgram2D.h"
 #include "Engine.h"
 
-#include <gtc\type_ptr.hpp>
+#include <glm\gtc\type_ptr.hpp>
 #include "VertexPos2D.h"
-#include <glm.hpp>
-#include <gtx\transform.hpp>
+#include <glm\glm.hpp>
+#include <glm\gtx\transform.hpp>
 
 FontProgram2D::FontProgram2D(void)
 {
@@ -209,7 +209,7 @@ void FontProgram2D::drawVAO(GLuint textureID,GLuint fVAO,GLfloat x, GLfloat y)
 
 
 		setModelViewMatrix(glm::mat4());
-		leftMultModelView(glm::translate<GLfloat>(x,y,0.f));
+		leftMultModelView(glm::translate<GLfloat>(glm::vec3(x,y,0.f)));
 		//leftMultModelView(glm::scale<GLfloat>(1.f,1.f,1.f));
 		
 		updateModelViewMatrix();

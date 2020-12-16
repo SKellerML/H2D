@@ -50,7 +50,7 @@ public:
 			fd.restitution = 0.99f;
 			fd.shape = shape;
 			fd.friction = 0;
-			fd.userData = &objectID;
+			fd.userData.pointer = uintptr_t(&objectID);
 
 			bodyContainer[i]->CreateFixture(&fd);
 		}

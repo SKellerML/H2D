@@ -5,9 +5,9 @@
 #include "LightProgram.h"
 #include "Element2D.h"
 #include "BaseObject.h"
-#include <glm.hpp>
-#include <gtc\type_ptr.hpp>
-#include <gtx\transform.hpp>
+#include <glm\glm.hpp>
+#include <glm\gtc\type_ptr.hpp>
+#include <glm\gtx\transform.hpp>
 
 class Light
 {

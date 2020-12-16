@@ -188,7 +188,7 @@ void SimpleParticleEmitter::renderParticles(b2Vec2 renderPos, GLfloat angle, b2V
 
 	particleProgram.bind();
 
-	particleProgram.setModelViewMatrix(glm::translate<GLfloat>(renderPosition.x+worp.x,renderPosition.y+worp.y,0.f));
+	particleProgram.setModelViewMatrix(glm::translate<GLfloat>(glm::vec3(renderPosition.x+worp.x,renderPosition.y+worp.y,0.f)));
 
 	// Translate and rotate
 	if (renderPos.x != 0.f || renderPos.y != 0.f || angle != 0.f)
@@ -196,18 +196,18 @@ void SimpleParticleEmitter::renderParticles(b2Vec2 renderPos, GLfloat angle, b2V
 		
 		if (rotationOffset.x != 0.f || rotationOffset.y != 0.f)
 		{
-			particleProgram.setModelViewMatrix(glm::translate<GLfloat>(rotationOffset.x, rotationOffset.y, 0.f));
-			particleProgram.leftMultModelView(glm::rotate<GLfloat>(angle, 0.f, 0.f, 1.f));
-			particleProgram.leftMultModelView(glm::translate<GLfloat>(-rotationOffset.x, -rotationOffset.y, 0.f));
-			particleProgram.leftMultModelView(glm::translate<GLfloat>(renderPos.x, renderPos.y, 0.f));
+			particleProgram.setModelViewMatrix(glm::translate<GLfloat>(glm::vec3(rotationOffset.x, rotationOffset.y, 0.f)));
+			particleProgram.leftMultModelView(glm::rotate<GLfloat>(angle, glm::vec3(0.f, 0.f, 1.f)));
+			particleProgram.leftMultModelView(glm::translate<GLfloat>(glm::vec3(-rotationOffset.x, -rotationOffset.y, 0.f)));
+			particleProgram.leftMultModelView(glm::translate<GLfloat>(glm::vec3(renderPos.x, renderPos.y, 0.f)));
 		}
 		else
 		{
 			//mTexturePolygonProgram2D->leftMultModelView(glm::translate<GLfloat>(-rPointX,-rPointY,0.f));
-			particleProgram.setModelViewMatrix(glm::translate<GLfloat>(renderPos.x, renderPos.y, 0.f));
-			particleProgram.leftMultModelView(glm::translate<GLfloat>(-rotationOffset.x, -rotationOffset.y, 0.f));
-			particleProgram.leftMultModelView(glm::rotate<GLfloat>(angle, 0.f, 0.f, 1.f));
-			particleProgram.leftMultModelView(glm::translate<GLfloat>(+rotationOffset.x, +rotationOffset.y, 0.f));
+			particleProgram.setModelViewMatrix(glm::translate<GLfloat>(glm::vec3(renderPos.x, renderPos.y, 0.f)));
+			particleProgram.leftMultModelView(glm::translate<GLfloat>(glm::vec3(-rotationOffset.x, -rotationOffset.y, 0.f)));
+			particleProgram.leftMultModelView(glm::rotate<GLfloat>(angle, glm::vec3(0.f, 0.f, 1.f)));
+			particleProgram.leftMultModelView(glm::translate<GLfloat>(glm::vec3(+rotationOffset.x, +rotationOffset.y, 0.f)));
 		}
 	}
 
@@ -375,7 +375,7 @@ void ComplexTexturedParticleEmitter::loadParticleProgram()
 	textureData.numberOfSprites=64;
 
 
-	textureData.texture.~Texture2D();
+	//textureData.texture.~Texture2D();
 	particleTextureDataContainer.push_back(textureData);
 	particleTextureDataContainer[0].texture.loadTextureFromFile32("ParticleAtlas.png");
 	/*
@@ -708,24 +708,24 @@ void ComplexTexturedParticleEmitter::renderParticles(b2Vec2 renderPos, GLfloat a
 	//tex.render(960.f,540.f);
 	complexParticleProgram.bind();
 
-	complexParticleProgram.setModelViewMatrix(glm::translate<GLfloat>(BaseObject::getWorldPos().x , BaseObject::getWorldPos().y ,0.f));
+	complexParticleProgram.setModelViewMatrix(glm::translate<GLfloat>(glm::vec3(BaseObject::getWorldPos().x , BaseObject::getWorldPos().y ,0.f)));
 
 	if (renderPos.x != 0.f || renderPos.y != 0.f || angle != 0.f)	//b2Vec2 renderPos, GLfloat angle, b2Vec2 rotationOffset
 	{
 		if (rotationOffset.x != 0.f || rotationOffset.y != 0.f)
 		{
-			complexParticleProgram.setModelViewMatrix(glm::translate<GLfloat>(rotationOffset.x, rotationOffset.y, 0.f));
-			complexParticleProgram.leftMultModelView(glm::rotate<GLfloat>(angle, 0.f, 0.f, 1.f));
-			complexParticleProgram.leftMultModelView(glm::translate<GLfloat>(-rotationOffset.x, -rotationOffset.y, 0.f));
-			complexParticleProgram.leftMultModelView(glm::translate<GLfloat>(renderPos.x, renderPos.y, 0.f));
+			complexParticleProgram.setModelViewMatrix(glm::translate<GLfloat>(glm::vec3(rotationOffset.x, rotationOffset.y, 0.f)));
+			complexParticleProgram.leftMultModelView(glm::rotate<GLfloat>(angle, glm::vec3(0.f, 0.f, 1.f)));
+			complexParticleProgram.leftMultModelView(glm::translate<GLfloat>(glm::vec3(-rotationOffset.x, -rotationOffset.y, 0.f)));
+			complexParticleProgram.leftMultModelView(glm::translate<GLfloat>(glm::vec3(renderPos.x, renderPos.y, 0.f)));
 		}
 		else
 		{
 			//mTexturePolygonProgram2D->leftMultModelView(glm::translate<GLfloat>(-rPointX,-rPointY,0.f));
-			complexParticleProgram.setModelViewMatrix(glm::translate<GLfloat>(renderPos.x, renderPos.y, 0.f));
-			complexParticleProgram.leftMultModelView(glm::translate<GLfloat>(-rotationOffset.x, -rotationOffset.y, 0.f));
-			complexParticleProgram.leftMultModelView(glm::rotate<GLfloat>(angle, 0.f, 0.f, 1.f));
-			complexParticleProgram.leftMultModelView(glm::translate<GLfloat>(+rotationOffset.x, +rotationOffset.y, 0.f));
+			complexParticleProgram.setModelViewMatrix(glm::translate<GLfloat>(glm::vec3(renderPos.x, renderPos.y, 0.f)));
+			complexParticleProgram.leftMultModelView(glm::translate<GLfloat>(glm::vec3(-rotationOffset.x, -rotationOffset.y, 0.f)));
+			complexParticleProgram.leftMultModelView(glm::rotate<GLfloat>(angle, glm::vec3(0.f, 0.f, 1.f)));
+			complexParticleProgram.leftMultModelView(glm::translate<GLfloat>(glm::vec3(+rotationOffset.x, +rotationOffset.y, 0.f)));
 		}
 	}
 
@@ -1159,23 +1159,23 @@ void ComplexPlainParticleEmitter::renderParticles(b2Vec2 renderPos, GLfloat angl
 	//tex.render(960.f,540.f);
 	complexParticleProgram.bind();
 
-	complexParticleProgram.setModelViewMatrix(glm::translate<GLfloat>(BaseObject::getWorldPos().x , BaseObject::getWorldPos().y ,0.f));
+	complexParticleProgram.setModelViewMatrix(glm::translate<GLfloat>(glm::vec3(BaseObject::getWorldPos().x , BaseObject::getWorldPos().y ,0.f)));
 
 	if (renderPos.x != 0.f || renderPos.y != 0.f || angle != 0.f)
 	{
 		if (rotationOffset.x != 0.f || rotationOffset.y != 0.f)
 		{
 
-			complexParticleProgram.setModelViewMatrix(glm::translate<GLfloat>(rotationOffset.x, rotationOffset.y, 0.f));
-			complexParticleProgram.leftMultModelView(glm::rotate<GLfloat>(angle, 0.f, 0.f, 1.f));
-			complexParticleProgram.leftMultModelView(glm::translate<GLfloat>(-rotationOffset.x, -rotationOffset.y, 0.f));
-			complexParticleProgram.leftMultModelView(glm::translate<GLfloat>(BaseObject::getWorldPos().x + renderPos.x, BaseObject::getWorldPos().y + renderPos.y, 0.f));
+			complexParticleProgram.setModelViewMatrix(glm::translate<GLfloat>(glm::vec3(rotationOffset.x, rotationOffset.y, 0.f)));
+			complexParticleProgram.leftMultModelView(glm::rotate<GLfloat>(angle, glm::vec3(0.f, 0.f, 1.f)));
+			complexParticleProgram.leftMultModelView(glm::translate<GLfloat>(glm::vec3(-rotationOffset.x, -rotationOffset.y, 0.f)));
+			complexParticleProgram.leftMultModelView(glm::translate<GLfloat>(glm::vec3(BaseObject::getWorldPos().x + renderPos.x, BaseObject::getWorldPos().y + renderPos.y, 0.f)));
 		}
 		else
 		{
 			//mTexturePolygonProgram2D->leftMultModelView(glm::translate<GLfloat>(-rPointX,-rPointY,0.f));
-			complexParticleProgram.leftMultModelView(glm::translate<GLfloat>(renderPos.x, renderPos.y, 0.f));
-			complexParticleProgram.leftMultModelView(glm::rotate<GLfloat>(angle, 0.f, 0.f, 1.f));
+			complexParticleProgram.leftMultModelView(glm::translate<GLfloat>(glm::vec3(renderPos.x, renderPos.y, 0.f)));
+			complexParticleProgram.leftMultModelView(glm::rotate<GLfloat>(angle, glm::vec3(0.f, 0.f, 1.f)));
 		}
 	}
 	

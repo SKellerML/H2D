@@ -1,5 +1,5 @@
 #include "MaskProgram.h"
-#include <gtc\type_ptr.hpp>
+#include <glm\gtc\type_ptr.hpp>
 
 MaskProgram::MaskProgram(void)
 {

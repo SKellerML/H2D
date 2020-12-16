@@ -1,7 +1,9 @@
 #include "Font2D.h"
 #include "VertexPos2D.h"
 #include "Engine.h"
-#include <gtx\transform.hpp>
+#include <glm\gtx\transform.hpp>
+
+#include <iostream>
 //#include FT_BITMAP_H
 //#include FT_GLYPH_H
 
@@ -312,7 +314,8 @@ void Font2D::renderText( GLfloat x, GLfloat y, std::string text, Rect *clip,int 
                 {
                     //Get ASCII
                     GLuint ascii = (unsigned char)text[ i ];
-
+					std::cout << "The Ascii Code: " << ascii << std::endl;
+					std::cout << "The Length: " << mClips.size() << std::endl;
 					drawFontSprite(text[i],dX,dY,s,s);
 					//mFontProgram2D->drawVAO(mTextureID,text[i],dX,dY);
 					dX += (mClips[ ascii ].r.w+5.f)*s;
@@ -338,10 +341,10 @@ void Font2D::drawFontSprite(GLuint fVAO,GLfloat x, GLfloat y, GLfloat sx, GLfloa
 	{
 		Engine::fontProgram.bind();
 
-		Engine::fontProgram.setModelViewMatrix(glm::translate<GLfloat>(x,y,0.f));
-		Engine::fontProgram.leftMultModelView(glm::scale<GLfloat>(sx,sy,1.f));
-		Engine::fontProgram.leftMultModelView(glm::rotate<GLfloat>(rz,0.f,0.f,1.f));
-		Engine::fontProgram.leftMultModelView(glm::translate<GLfloat>(-rPointX,-rPointY,0.f));
+		Engine::fontProgram.setModelViewMatrix(glm::translate<GLfloat>(glm::vec3(x,y,0.f)));
+		Engine::fontProgram.leftMultModelView(glm::scale<GLfloat>(glm::vec3(sx,sy,1.f)));
+		Engine::fontProgram.leftMultModelView(glm::rotate<GLfloat>(rz, glm::vec3(0.f,0.f,1.f)));
+		Engine::fontProgram.leftMultModelView(glm::translate<GLfloat>(glm::vec3(-rPointX,-rPointY,0.f)));
 
 		Engine::fontProgram.updateModelViewMatrix();
 		
@@ -418,8 +421,12 @@ GLfloat Font2D::getNewLineHeight()
 GLfloat Font2D::getLetterWidth(unsigned char letter)
 {
 	GLuint ascii = letter;
-
-	return (mClips[ ascii ].r.w+5.f);
+	if (mClips.size() > ascii) {
+		return (mClips[ascii].r.w + 5.f);
+	}
+	else {
+		return (mClips[0].r.w + 5.f);
+	}
 }
 
 /*

@@ -1,6 +1,6 @@
 #include "Engine.h"
-#include <gtx\transform.hpp>
-#include <glm.hpp>
+#include <glm\gtx\transform.hpp>
+#include <glm\glm.hpp>
 
 	GLfloat Engine::SCREEN_HEIGHT = 720.f;
 	GLfloat Engine::SCREEN_WIDTH = 1270.f;

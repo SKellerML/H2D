@@ -1,7 +1,7 @@
 #pragma once
 
 #include "OpenGLH.h"
-#include <irrKlang.h>
+#include <Irrklang\irrKlang.h>
 #include "tinyxml2.h"
 
 #include <Box2D\Box2D.h>

@@ -1,7 +1,7 @@
 #pragma once
 
 #include "ShaderProgram.h"
-#include <glm.hpp>
+#include <glm\glm.hpp>
 
 
 class TexturedPolygon2D : public ShaderProgram

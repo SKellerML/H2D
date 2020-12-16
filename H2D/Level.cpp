@@ -3,13 +3,13 @@
 #include "Game.h"
 #include "Mask.h"
 
-#include <glm.hpp>
-#include <gtx\transform.hpp>
+#include <glm\glm.hpp>
+#include <glm\gtx\transform.hpp>
 #include <iostream>
 #include <sstream>
 #include <cmath>
 
-#include <irrKlang.h>
+#include <Irrklang\irrKlang.h>
 
 #define Pi 3.14159265359
 

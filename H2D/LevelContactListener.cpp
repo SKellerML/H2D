@@ -118,16 +118,16 @@ void LevelContactListener::PostSolve(b2Contact *contact, const b2ContactImpulse*
 	contact->GetWorldManifold(manifold);
 
 	// Object ID's
-	int* objIDA = (int*)contact->GetFixtureA()->GetUserData();
-	int* objIDB = (int*)contact->GetFixtureB()->GetUserData();
+	int* objIDA = (int*)contact->GetFixtureA()->GetUserData().pointer;
+	int* objIDB = (int*)contact->GetFixtureB()->GetUserData().pointer;
 
 
 
 	if (objIDA != nullptr && objIDB != nullptr)
 	{
 
-		BaseObject* bbA = (BaseObject*)contact->GetFixtureA()->GetBody()->GetUserData();
-		BaseObject* bbB = (BaseObject*)contact->GetFixtureA()->GetBody()->GetUserData();
+		BaseObject* bbA = (BaseObject*)contact->GetFixtureA()->GetBody()->GetUserData().pointer;
+		BaseObject* bbB = (BaseObject*)contact->GetFixtureA()->GetBody()->GetUserData().pointer;
 		// Particle Hit
 		if (*objIDB == GAMEOBJECTTYPE_PARTICLE)
 		{

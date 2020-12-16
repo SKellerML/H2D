@@ -2,7 +2,7 @@
 
 #include "OpenGLH.h"
 #include "ShaderProgram.h"
-#include <glm.hpp>
+#include <glm\glm.hpp>
 
 
 class BorderPolygon2D : public ShaderProgram

@@ -1,13 +1,13 @@
 #include "SpriteSheet2D.h"
 #include "Engine.h"
 
-SpriteSheet2D::SpriteSheet2D(void)
+SpriteSheet2D::SpriteSheet2D(void) : Texture2D()
 {
+
+
 	mVAOID = 0;
 	mTextureID=0;
 
-	mPixels32 = NULL;
-	mPixels8  = NULL;
 
 	mTextureWidth= 0;
 	mTextureHeight= 0;
@@ -27,7 +27,7 @@ SpriteSheet2D::~SpriteSheet2D(void)
 {
 }
 
-int SpriteSheet2D::addClipSprite(Rect& newClip,bool invert)
+int SpriteSheet2D::addClipSprite(Rect newClip,bool invert)
 {
 	RectVAO n;
 	n.r = newClip;

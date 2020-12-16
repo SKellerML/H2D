@@ -1,7 +1,7 @@
 #pragma once
 #include "ShaderProgram.h"
-#include <gtc\type_ptr.hpp>
-#include <glm.hpp>
+#include <glm\gtc\type_ptr.hpp>
+#include <glm\glm.hpp>
 #include "Rect.h"
 
 class ComplexPlainParticleProgram : public ShaderProgram

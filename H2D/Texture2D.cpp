@@ -2,10 +2,11 @@
 #include "VertexPos2D.h"
 #include "Engine.h"
 
-#include <IL\il.h>
-#include <IL\ilu.h>
+#include <FreeImage/FreeImage.h>
 
-#include <gtx\transform.hpp>
+#include <glm\gtx\transform.hpp>
+
+#include <iostream>
 
 TexturedPolygon2D* Texture2D::mTexturePolygonProgram2D = NULL;
 
@@ -19,8 +20,8 @@ Texture2D::Texture2D(void)
 	mVAOID = 0;
 	mTextureID=0;
 
-	mPixels32 = NULL;
-	mPixels8  = NULL;
+	mPixels32 = nullptr;
+	mPixels8  = nullptr;
 
 	mTextureWidth= 0;
 	mTextureHeight= 0;
@@ -40,14 +41,16 @@ Texture2D::~Texture2D(void)
 {
 	glDeleteTextures(1,&mTextureID);
 
-	delete[] mPixels8;
-	delete[] mPixels32;
+	if (mPixels8 != nullptr) delete[] mPixels8;
+	if (mPixels32 != nullptr) delete[] mPixels32;
+
+	mPixels32 = nullptr;
+	mPixels8 = nullptr;
+
 
 	mVAOID = 0;
 	mTextureID=0;
 
-	mPixels32 = NULL;
-	mPixels8  = NULL;
 
 	mTextureWidth= 0;
 	mTextureHeight= 0;
@@ -66,35 +69,35 @@ bool Texture2D::loadTextureFromFile32(std::string path)
 {
 	bool textureloaded=false;
 
-	ILuint imgID = 0;
-	ilGenImages(1,&imgID);
-	ilBindImage(imgID);
-	
-	ILboolean success = ilLoadImage((const wchar_t*)path.c_str());
-	if(success==IL_TRUE)
+	FIBITMAP* dib1 = nullptr;
+	FREE_IMAGE_FORMAT fif = FreeImage_GetFIFFromFilename(path.c_str());
+	dib1 = FreeImage_Load(fif, path.c_str(), PNG_DEFAULT);
+	if (dib1)
 	{
-				
-		success = ilConvertImage( IL_RGBA, IL_UNSIGNED_BYTE );
-        if( success == IL_TRUE )
-        {
-			GLuint imgWidth = (GLuint)ilGetInteger(IL_IMAGE_WIDTH);
-			GLuint imgHeight = (GLuint)ilGetInteger(IL_IMAGE_HEIGHT);
-
-			GLuint texWidth = powerOfTwo(imgWidth);
-			GLuint texHeight = powerOfTwo(imgHeight);
 		
-			if(imgWidth != texWidth || imgHeight != texHeight)
-			{
-				iluImageParameter(ILU_PLACEMENT,ILU_UPPER_LEFT);
-				iluEnlargeCanvas((int)texWidth,(int)texHeight,1);
-			}
-			textureloaded = loadTextureFromPixels32( (GLuint*)ilGetData(), imgWidth, imgHeight, texWidth, texHeight );
-		}
-			
-			ilDeleteImages( 1, &imgID );
-			mPixelFormat = GL_RGBA;
-	}
 
+		FIBITMAP* src = FreeImage_ConvertTo32Bits(dib1);
+		FreeImage_Unload(dib1);
+
+		mImgWidth = FreeImage_GetWidth(src); //(GLuint)ilGetInteger(IL_IMAGE_WIDTH);
+		mImgHeight = FreeImage_GetHeight(src);
+
+		mTextureWidth = mImgWidth;
+		mTextureHeight = mImgHeight;
+
+		GLuint scan_width = FreeImage_GetPitch(src);
+
+		BYTE* pixd = new BYTE[mImgHeight * scan_width];
+
+		FreeImage_ConvertToRawBits(pixd, src, scan_width, 32, FI_RGBA_RED_MASK, FI_RGBA_GREEN_MASK, FI_RGBA_GREEN, false);
+		FreeImage_Unload(src);
+		mPixels32 = (GLuint*)pixd;
+		mPixelFormat = GL_RGBA;
+			
+		if (loadTextureFromPixels32()) {
+			textureloaded = true;
+		}
+	}
 	if(!textureloaded)
 	{
 		printf( "Unable to load %s\n", path.c_str() );
@@ -105,42 +108,33 @@ bool Texture2D::loadTextureFromFile32(std::string path)
 
 bool Texture2D::loadPixelsFromFile32(std::string path)
 {
-	bool pixelsloaded=false;
+	bool pixelsloaded = false;
 
-	ILuint imgID = 0;
-	ilGenImages(1,&imgID);
-	ilBindImage(imgID);
-	
-	ILboolean success = ilLoadImage((const wchar_t*)path.c_str());
-	if(success==IL_TRUE)
+	FIBITMAP* dib1 = nullptr;
+	FREE_IMAGE_FORMAT fif = FreeImage_GetFIFFromFilename(path.c_str());
+	dib1 = FreeImage_Load(fif, path.c_str(), PNG_DEFAULT);
+	if (dib1)
 	{
-		success = ilConvertImage( IL_RGBA, IL_UNSIGNED_BYTE );
-        if( success == IL_TRUE )
-        {
-			mImgWidth = (GLuint)ilGetInteger(IL_IMAGE_WIDTH);
-			mImgHeight = (GLuint)ilGetInteger(IL_IMAGE_HEIGHT);
+		FIBITMAP* src = FreeImage_ConvertTo32Bits(dib1);
+		FreeImage_Unload(dib1);
 
-			mTextureWidth = powerOfTwo(mImgWidth);
-			mTextureHeight = powerOfTwo(mImgHeight);
-		
-			if(mImgWidth != mTextureWidth || mImgHeight != mTextureHeight)
-			{
-				iluImageParameter(ILU_PLACEMENT,ILU_UPPER_LEFT);
-				iluEnlargeCanvas((int)mTextureWidth,(int)mTextureHeight,1);
-			}
+		mImgWidth = FreeImage_GetWidth(src); //(GLuint)ilGetInteger(IL_IMAGE_WIDTH);
+		mImgHeight = FreeImage_GetHeight(src);
 
-			GLuint size = mTextureWidth*mTextureHeight;
-			mPixels32=new GLuint[size];
+		mTextureWidth = mImgWidth;
+		mTextureHeight = mImgHeight;
 
-			memcpy(mPixels32,ilGetData(),size*4);
+		GLuint scan_width = FreeImage_GetPitch(src);
 
-			pixelsloaded = true;
-		}
-			
-			ilDeleteImages( 1, &imgID );
-			mPixelFormat = GL_RGBA;
+		BYTE* pixd = new BYTE[mImgHeight * scan_width];
+
+		FreeImage_ConvertToRawBits(pixd, src, scan_width, 32, FI_RGBA_RED_MASK, FI_RGBA_GREEN_MASK, FI_RGBA_BLUE_MASK, TRUE);
+		FreeImage_Unload(src);
+		mPixels32 = (GLuint*)pixd;
+
+		mPixelFormat = GL_RGBA;
+		pixelsloaded = true;
 	}
-
 	if(!pixelsloaded)
 	{
 		printf( "Unable to load %s\n", path.c_str() );
@@ -150,42 +144,35 @@ bool Texture2D::loadPixelsFromFile32(std::string path)
 
 bool Texture2D::loadPixelsFromFile8(std::string path)
 {
-	bool pixelsloaded=false;
+	bool pixelsloaded = false;
 
-	ILuint imgID = 0;
-	ilGenImages(1,&imgID);
-	ilBindImage(imgID);
-	
-	ILboolean success = ilLoadImage((const wchar_t*)path.c_str());
-	if(success==IL_TRUE)
+	FIBITMAP* dib1 = nullptr;
+	FREE_IMAGE_FORMAT fif = FreeImage_GetFIFFromFilename(path.c_str());
+	dib1 = FreeImage_Load(fif, path.c_str(), PNG_DEFAULT);
+	if (dib1)
 	{
-		success = ilConvertImage( IL_LUMINANCE, IL_UNSIGNED_BYTE );
-        if( success == IL_TRUE )
-        {
-			mImgWidth = (GLuint)ilGetInteger(IL_IMAGE_WIDTH);
-			mImgHeight = (GLuint)ilGetInteger(IL_IMAGE_HEIGHT);
+		FIBITMAP* src = FreeImage_ConvertTo8Bits(dib1);
+		FreeImage_Unload(dib1);
 
-			mTextureWidth = powerOfTwo(mImgWidth);
-			mTextureHeight = powerOfTwo(mImgHeight);
-		
-			if(mImgWidth != mTextureWidth || mImgHeight != mTextureHeight)
-			{
-				iluImageParameter(ILU_PLACEMENT,ILU_UPPER_LEFT);
-				iluEnlargeCanvas((int)mTextureWidth,(int)mTextureHeight,1);
-			}
+		mImgWidth = FreeImage_GetWidth(src); //(GLuint)ilGetInteger(IL_IMAGE_WIDTH);
+		mImgHeight = FreeImage_GetHeight(src);
 
-			GLuint size = mTextureWidth*mTextureHeight;
-			mPixels8=new GLubyte[size];
+		mTextureWidth = mImgWidth;
+		mTextureHeight = mImgHeight;
 
-			memcpy(mPixels8,ilGetData(),size);
+		GLuint scan_width = FreeImage_GetPitch(src);
 
-			pixelsloaded = true;
-		}
-			
-			ilDeleteImages( 1, &imgID );
-			mPixelFormat = GL_RED;
+		BYTE* pixd = new BYTE[mImgHeight * scan_width];
+
+		FreeImage_ConvertToRawBits(pixd, src, scan_width, 8, FI_RGBA_RED_MASK, FI_RGBA_GREEN_MASK, FI_RGBA_BLUE_MASK, TRUE);
+		FreeImage_Unload(src);
+
+		mPixels8 = (GLubyte*)pixd;
+
+		mPixelFormat = GL_RGBA;
+		pixelsloaded = true;
 	}
-
+	
 	if(!pixelsloaded)
 	{
 		printf( "Unable to load %s\n", path.c_str() );
@@ -195,7 +182,7 @@ bool Texture2D::loadPixelsFromFile8(std::string path)
 	
 bool Texture2D::loadTextureFromPixels32()
 {
-	if(mTextureID==0 && mPixels32 != NULL)
+	if(mTextureID==0 && mPixels32 != nullptr)
 	{
 		glGenTextures(1,&mTextureID);
 		glBindTexture(GL_TEXTURE_2D,mTextureID);
@@ -209,7 +196,7 @@ bool Texture2D::loadTextureFromPixels32()
 		glBindTexture(GL_TEXTURE_2D,NULL);
 
 		delete[] mPixels32;
-		mPixels32 = NULL;
+		mPixels32 = nullptr;
 
 		GLenum error = glGetError();
 		if( error != GL_NO_ERROR )
@@ -221,19 +208,21 @@ bool Texture2D::loadTextureFromPixels32()
 		initVAO(&c);
 
 		mPixelFormat = GL_RGBA;
+
 		return true;
 	}
+
 	return false;
 }
 
 bool Texture2D::loadTextureFromPixels8()
 {
-	if(mTextureID==0 && mPixels8 != NULL)
+	if(mTextureID==0 && mPixels8 != nullptr)
 	{
 		glGenTextures(1,&mTextureID);
 		glBindTexture(GL_TEXTURE_2D,mTextureID);
 		glTexImage2D(GL_TEXTURE_2D,0,GL_RED,mTextureWidth,mTextureHeight,0,GL_RED,GL_UNSIGNED_BYTE,mPixels8);
-	glGenerateMipmap(GL_TEXTURE_2D);
+		glGenerateMipmap(GL_TEXTURE_2D);
 		glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR );
 		glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR );
 		//glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_BORDER );
@@ -241,8 +230,8 @@ bool Texture2D::loadTextureFromPixels8()
 		
 		glBindTexture(GL_TEXTURE_2D,NULL);
 
-		//delete[] mPixels8;
-		mPixels8 = NULL;
+		delete[] mPixels8;
+		mPixels8 = nullptr;
 
 		GLenum error = glGetError();
 		if( error != GL_NO_ERROR )
@@ -254,23 +243,30 @@ bool Texture2D::loadTextureFromPixels8()
 		initVAO(&c);
 
 		mPixelFormat = GL_RED;
+
+		std::cout << "E " << mTextureID << std::endl;
+
 		return true;
+	}
+	else {
+		if (mPixels8 != nullptr) {
+			std::cout << "It failed " << mTextureID << std::endl;
+		}
 	}
 	return false;
 }
 
-bool Texture2D::loadTextureFromPixels32( GLuint* pixels, GLuint imgWidth, GLuint imgHeight, GLuint texWidth, GLuint texHeight )
+bool Texture2D::loadTextureFromPixels32( GLuint* pixels, GLuint imgWidth, GLuint imgHeight)
 {
 	if(mTextureID == 0)
 	{
 		mImgWidth=imgWidth;
 		mImgHeight=imgHeight;
-		mTextureWidth=texWidth;
-		mTextureHeight=texHeight;
+
 
 		glGenTextures(1,&mTextureID);
 		glBindTexture(GL_TEXTURE_2D,mTextureID);
-		glTexImage2D(GL_TEXTURE_2D,0,GL_RGBA,mTextureWidth,mTextureHeight,0,GL_RGBA,GL_UNSIGNED_BYTE,pixels);
+		glTexImage2D(GL_TEXTURE_2D,0,GL_RGBA, mImgWidth, mImgHeight,0,GL_RGBA,GL_UNSIGNED_BYTE,pixels);
 
 		glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR );
 		glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR );
@@ -293,7 +289,7 @@ bool Texture2D::loadTextureFromPixels32( GLuint* pixels, GLuint imgWidth, GLuint
 	return false;
 }
 
-bool Texture2D::loadScreenshotFromPixels32( GLuint* pixels, GLuint imgWidth, GLuint imgHeight, GLuint texWidth, GLuint texHeight )
+bool Texture2D::loadScreenshotFromPixels32( GLuint* pixels, GLuint imgWidth, GLuint imgHeight)
 {
 	if(mTextureID == 0)
 	{
@@ -743,13 +739,13 @@ void Texture2D::render(GLfloat x, GLfloat y, GLfloat sx, GLfloat sy, GLfloat rz,
 		mTexturePolygonProgram2D->bind();
 
 		
-		mTexturePolygonProgram2D->setModelViewMatrix(glm::translate<GLfloat>(x,y,0.f));
+		mTexturePolygonProgram2D->setModelViewMatrix(glm::translate<GLfloat>(glm::vec3(x,y, 0.f)));
 		
-		mTexturePolygonProgram2D->leftMultModelView(glm::rotate<GLfloat>(rz,0.f,0.f,1.f));		
+		mTexturePolygonProgram2D->leftMultModelView(glm::rotate<GLfloat>(rz,glm::vec3(0.f,0.f,1.f)));
 		//mTexturePolygonProgram2D->leftMultModelView(glm::translate<GLfloat>(rPointX,rPointY,0.f));
-		mTexturePolygonProgram2D->leftMultModelView(glm::scale<GLfloat>(sx,sy,1.f));
+		mTexturePolygonProgram2D->leftMultModelView(glm::scale<GLfloat>(glm::vec3(sx,sy,1.f)));
 		//mTexturePolygonProgram2D->leftMultModelView(glm::translate<GLfloat>(-rPointX,-rPointY,0.f));
-		mTexturePolygonProgram2D->leftMultModelView(glm::translate<GLfloat>(-rPointX,-rPointY,0.f));
+		mTexturePolygonProgram2D->leftMultModelView(glm::translate<GLfloat>(glm::vec3(-rPointX,-rPointY,0.f)));
 		
 		//mTexturePolygonProgram2D->leftMultModelView(glm::translate<GLfloat>(-rPointX,-rPointY,0.f));		
 		
@@ -789,13 +785,13 @@ void Texture2D::render(GLfloat x, GLfloat y, Color4f color, GLfloat sx, GLfloat 
 		mTexturePolygonProgram2D->bind();
 
 
-		mTexturePolygonProgram2D->setModelViewMatrix(glm::translate<GLfloat>(x, y, 0.f));
+		mTexturePolygonProgram2D->setModelViewMatrix(glm::translate<GLfloat>(glm::vec3(x, y, 0.f)));
 
-		mTexturePolygonProgram2D->leftMultModelView(glm::rotate<GLfloat>(rz, 0.f, 0.f, 1.f));
+		mTexturePolygonProgram2D->leftMultModelView(glm::rotate<GLfloat>(rz, glm::vec3(0.f, 0.f, 1.f)));
 		//mTexturePolygonProgram2D->leftMultModelView(glm::translate<GLfloat>(rPointX,rPointY,0.f));
-		mTexturePolygonProgram2D->leftMultModelView(glm::scale<GLfloat>(sx, sy, 1.f));
+		mTexturePolygonProgram2D->leftMultModelView(glm::scale<GLfloat>(glm::vec3(sx, sy, 1.f)));
 		//mTexturePolygonProgram2D->leftMultModelView(glm::translate<GLfloat>(-rPointX,-rPointY,0.f));
-		mTexturePolygonProgram2D->leftMultModelView(glm::translate<GLfloat>(-rPointX, -rPointY, 0.f));
+		mTexturePolygonProgram2D->leftMultModelView(glm::translate<GLfloat>(glm::vec3(-rPointX, -rPointY, 0.f)));
 
 		//mTexturePolygonProgram2D->leftMultModelView(glm::translate<GLfloat>(-rPointX,-rPointY,0.f));		
 
@@ -843,19 +839,19 @@ void Texture2D::renderVAO(GLuint fVAO,GLfloat x, GLfloat y, GLfloat sx, GLfloat 
 
 			//mTexturePolygonProgram2D->leftMultModelView(glm::scale<GLfloat>(sx,sy,1.f));
 			//mTexturePolygonProgram2D->leftMultModelView(glm::translate<GLfloat>(x, y, 0.f));
-			mTexturePolygonProgram2D->setModelViewMatrix(glm::translate<GLfloat>(x, y, 0.f));
-			mTexturePolygonProgram2D->leftMultModelView(glm::scale<GLfloat>(sx, sy, 1.f));
-			mTexturePolygonProgram2D->leftMultModelView(glm::translate<GLfloat>(-rPointX, -rPointY, 0.f));
-			mTexturePolygonProgram2D->leftMultModelView(glm::rotate<GLfloat>(rz, 0.f, 0.f, 1.f));
-			mTexturePolygonProgram2D->leftMultModelView(glm::translate<GLfloat>(+rPointX, +rPointY, 0.f));
+			mTexturePolygonProgram2D->setModelViewMatrix(glm::translate<GLfloat>(glm::vec3(x, y, 0.f)));
+			mTexturePolygonProgram2D->leftMultModelView(glm::scale<GLfloat>(glm::vec3(sx, sy, 1.f)));
+			mTexturePolygonProgram2D->leftMultModelView(glm::translate<GLfloat>(glm::vec3(-rPointX, -rPointY, 0.f)));
+			mTexturePolygonProgram2D->leftMultModelView(glm::rotate<GLfloat>(rz, glm::vec3(0.f, 0.f, 1.f)));
+			mTexturePolygonProgram2D->leftMultModelView(glm::translate<GLfloat>(glm::vec3(+rPointX, +rPointY, 0.f)));
 		}
 		else
 		{
 			//mTexturePolygonProgram2D->leftMultModelView(glm::translate<GLfloat>(-rPointX,-rPointY,0.f));
-			mTexturePolygonProgram2D->setModelViewMatrix(glm::translate<GLfloat>(x,y,0.f));
-			mTexturePolygonProgram2D->leftMultModelView(glm::scale<GLfloat>(sx,sy,1.f));
+			mTexturePolygonProgram2D->setModelViewMatrix(glm::translate<GLfloat>(glm::vec3(x,y,0.f)));
+			mTexturePolygonProgram2D->leftMultModelView(glm::scale<GLfloat>(glm::vec3(sx,sy,1.f)));
 
-			mTexturePolygonProgram2D->leftMultModelView(glm::rotate<GLfloat>(rz,0.f,0.f,1.f));
+			mTexturePolygonProgram2D->leftMultModelView(glm::rotate<GLfloat>(rz, glm::vec3(0.f,0.f,1.f)));
 
 		}
 
@@ -887,7 +883,7 @@ void Texture2D::renderFast(b2Vec2 pos)
 {
 
 
-	mTexturePolygonProgram2D->setModelViewMatrix(glm::translate<GLfloat>(pos.x, pos.y,0.f));
+	mTexturePolygonProgram2D->setModelViewMatrix(glm::translate<GLfloat>(glm::vec3(pos.x, pos.y,0.f)));
 
 
 
@@ -1133,8 +1129,13 @@ GLuint Texture2D::getPixel32(GLuint x, GLuint y)
 	return mPixels32[mTextureWidth*y + x];
 }
 GLubyte Texture2D::getPixel8(GLuint x, GLuint y)
-{
-	return mPixels8[mTextureWidth*y + x];
+{	
+	if (mPixels8 != nullptr) {
+		return mPixels8[mTextureWidth * y + x];
+	}
+	else {
+		return 0;
+	}
 }
 
 void Texture2D::setPixel32(GLuint x, GLuint y, GLuint pixel)

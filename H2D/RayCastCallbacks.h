@@ -17,13 +17,14 @@ public:
 	LaserRayCastCallback(void);
 	~LaserRayCastCallback(void);
 
-	float32 ReportFixture(b2Fixture* fixture, const b2Vec2& point, const b2Vec2& normal, float32 fraction)
+	float ReportFixture(b2Fixture* fixture, const b2Vec2& point, const b2Vec2& normal, float fraction)
 	{
 		if(fixture->IsSensor())// || fixture->GetFilterData().categoryBits == 0)
 		{
 			return m_fraction;
 		}
-		int* gameobjecttype = (int*)fixture->GetUserData();
+
+		int* gameobjecttype = (int*)fixture->GetUserData().pointer;
 		if (gameobjecttype == nullptr || *gameobjecttype == GAMEOBJECTTYPE_PARTICLE)
 		{
 			return -1;
@@ -33,7 +34,7 @@ public:
 			m_fraction=fraction;
 			impactPoint=point;
 			impactNormal = normal;
-			hitObject = (BaseObject*)fixture->GetBody()->GetUserData();
+			hitObject = (BaseObject*)fixture->GetBody()->GetUserData().pointer;
 
 			hitFixtureUserData = *gameobjecttype;//*(GLuint*)fixture->GetUserData();
 
@@ -133,13 +134,13 @@ public:
 	HitRayCastCallback(void)	{ collision = false; }
 	~HitRayCastCallback(void)	{}
 
-	float32 ReportFixture(b2Fixture* fixture, const b2Vec2& point, const b2Vec2& normal, float32 fraction)
+	float ReportFixture(b2Fixture* fixture, const b2Vec2& point, const b2Vec2& normal, float fraction)
 	{
 		if(fixture->IsSensor() || fixture->GetFilterData().categoryBits == 0)
 		{
 			return 1;
 		}
-		if( *(int*)fixture->GetUserData() == 7 )
+		if( *(int*)fixture->GetUserData().pointer == 7 )
 		{
 			return -1;
 		}

@@ -1,6 +1,6 @@
 #include "TileProgram.h"
 
-#include <gtc\type_ptr.hpp>
+#include <glm\gtc\type_ptr.hpp>
 
 TileProgram::TileProgram()
 {
@@ -52,16 +52,16 @@ bool TileProgram::loadProgram()
 	{
 		printf("ModelViewMatrix is not a valid uniform\n");
 	}
-	mVertexPos2DLocation = glGetAttribLocation(mProgramID, "VertexPos2D");
-	if (mVertexPos2DLocation == -1)
-	{
-		printf("VertexPos2D is not a valid attrib\n");
-	}
-	mTextureUnitLocation = glGetUniformLocation(mProgramID, "TextureUnit");
-	if (mTextureUnitLocation == -1)
-	{
-		printf("TextureUnit is not a valid attrib\n");
-	}
+	//mVertexPos2DLocation = glGetAttribLocation(mProgramID, "VertexPos2D");
+	//if (mVertexPos2DLocation == -1)
+	//{
+	//	printf("VertexPos2D is not a valid attrib\n");
+	//}
+	//mTextureUnitLocation = glGetUniformLocation(mProgramID, "TextureUnit");
+	//if (mTextureUnitLocation == -1)
+	//{
+	//	printf("TextureUnit is not a valid attrib\n");
+	//}
 
 	return true;
 }

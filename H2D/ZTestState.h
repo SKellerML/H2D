@@ -4,7 +4,7 @@
 #include "GameState.h"
 #include "ParticleProgram.h"
 #include "TickCounter.h"
-#include <gtx\transform.hpp>
+#include <glm\gtx\transform.hpp>
 #include <Box2D\Box2D.h>
 
 #include <vector>

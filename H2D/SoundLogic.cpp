@@ -25,7 +25,7 @@ void SoundLogic::createSound(b2Vec2 position, GLfloat volume, bool suspicious)
 		printf("Size;;; %i \n", cb->fixtureVector.size());
 		for (int i = cb->fixtureVector.size() - 1; i; --i)
 		{
-			BaseObject* bo = (BaseObject*)cb->fixtureVector[i]->GetBody()->GetUserData();
+			BaseObject* bo = (BaseObject*)cb->fixtureVector[i]->GetBody()->GetUserData().pointer;
 
 			//BaseObject* bo2 = (BaseObject*)cb->fixtureVector[1]->GetBody()->GetUserData();
 			std::vector<b2Vec2> vv;

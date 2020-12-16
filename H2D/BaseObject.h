@@ -57,7 +57,7 @@ enum GameObjectTyoe
 
 struct HitData
 {
-	HitData(GLuint _weaponType, const float32 _impactImpulse[2], GLfloat _damageValue) : weaponType(_weaponType), damageValue(_damageValue) { impactImpulse.Set(_impactImpulse[0], _impactImpulse[1]); }
+	HitData(GLuint _weaponType, const float _impactImpulse[2], GLfloat _damageValue) : weaponType(_weaponType), damageValue(_damageValue) { impactImpulse.Set(_impactImpulse[0], _impactImpulse[1]); }
 	HitData(GLuint _weaponType, b2Vec2 _impactImpulse, GLfloat _damageValue) : weaponType(_weaponType), impactImpulse(_impactImpulse), damageValue(_damageValue) {  }
 
 	HitData() {}
@@ -100,7 +100,7 @@ public:
 	// Sprite Sheet handling methods
 	static GLuint addSheet(std::string *sheetLocation);
 	static void deleteSheets();
-	static GLuint addSprite(Rect &obj,GLuint sheet);
+	static GLuint addSprite(Rect obj,GLuint sheet);
 	static SpriteSheet2D* getSpriteSheet(int id);
 	static void initBaseObject(GLuint(*func)(GLuint, b2Vec2, GLfloat, int, int));
 	static void loadBaseObjectSpriteSheets();
@@ -130,7 +130,12 @@ public:
 	virtual void isHit(HitData* impactData,b2Vec2 collisionPoint,GLuint hitFixture)=0;
 	virtual void listenSound(b2Vec2 soundPosition, GLfloat volume, GLfloat distance, bool isSuspicious) {}
 
-	void setObject(std::shared_ptr<BaseObject> objPtr, GLuint listID) { body->SetUserData(objPtr.get()); m_listID = listID; body->GetFixtureList()->SetUserData(&objectID); }
+	void setObject(std::shared_ptr<BaseObject> objPtr, GLuint listID) { 
+		//body->m_userData =
+		body->m_userData.pointer = uintptr_t(objPtr.get());
+		//body->SetUserData(objPtr.get()); 
+		m_listID = listID; 
+		body->GetFixtureList()->m_userData.pointer = uintptr_t(&objectID); }
 
 	static b2Vec2 getWorldPos();
 	static void setWorldPos(b2Vec2 w)	{ worldPos = w; }

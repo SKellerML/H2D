@@ -5,7 +5,7 @@
 //#include "Music.h"
 
 #include <map>
-#include <irrKlang.h>
+#include <Irrklang\irrKlang.h>
 
 #include <boost\shared_ptr.hpp>
 #include <boost\ptr_container\ptr_vector.hpp>

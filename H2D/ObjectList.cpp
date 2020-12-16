@@ -1,5 +1,7 @@
 #include "ObjectList.h"
 
+#include <iostream>
+
 //int ObjectList::m_currentObjectID;
 
 //std::map< GLuint, std::shared_ptr<BaseObject> > ObjectList::mapmap;
@@ -181,11 +183,21 @@ GLuint ObjectList::addObject(GLuint objectType, b2Vec2 pos, GLfloat angle, int f
 GLuint ObjectList::addObject(std::shared_ptr<BaseObject> object, int floor, bool onFloor)
 {
 	if (floor < 0 || floor >= tm.size()) floor = currentFloor;
-	
+	std::cout << "Floors: " << tm.size() << std::endl;
+	++m_currentObjectID[floor];
 	// Set object i
-	if (onFloor) objectMap[floor].ground.at(m_currentObjectID[floor])->setObject( objectMap[floor].ground.insert(objectMap[floor].ground.end(), std::make_pair(++m_currentObjectID[floor], object))->second, m_currentObjectID[floor] );
-	else objectMap[floor].normal.at(m_currentObjectID[floor])->setObject( objectMap[floor].normal.insert(objectMap[floor].normal.end(), std::make_pair(++m_currentObjectID[floor], object))->second, m_currentObjectID[floor] );
+	if (onFloor) {
+		//objectMap[floor].ground.at(	m_currentObjectID[floor])->setObject(
+		//		objectMap[floor].ground.insert(objectMap[floor].ground.end(), std::make_pair(++m_currentObjectID[floor], object)
+		//	)->second, m_currentObjectID[floor]);
 
+
+		objectMap[floor].ground.insert(objectMap[floor].ground.end(), std::make_pair(++m_currentObjectID[floor], object)
+		)->second;
+	}
+	else {
+		objectMap[floor].normal.at(m_currentObjectID[floor])->setObject(objectMap[floor].normal.insert(objectMap[floor].normal.end(), std::make_pair(++m_currentObjectID[floor], object))->second, m_currentObjectID[floor]);
+	}
 	return m_currentObjectID[floor];
 }
 

@@ -1,6 +1,6 @@
 #include "Square2D.h"
 #include "VertexPos2D.h"
-#include <gtx\transform.hpp>
+#include <glm\gtx\transform.hpp>
 #include "Engine.h"
 
 BorderPolygon2D *Square2D::mBorderProgram2D = NULL;
@@ -76,7 +76,7 @@ void Square2D::render(GLuint vaoID,GLfloat x, GLfloat y, GLfloat sx, GLfloat sy,
 {
 		mBorderProgram2D->bind();
 
-		mBorderProgram2D->setModelViewMatrix(glm::translate<GLfloat>(x,y,0.f));
+		mBorderProgram2D->setModelViewMatrix(glm::translate<GLfloat>(glm::vec3(x,y,0.f)));
 		//mBorderProgram2D->leftMultModelView(glm::scale<GLfloat>(sx,sy,1.f));
 		//mBorderProgram2D->leftMultModelView(glm::rotate<GLfloat>(rz,0.f,0.f,1.f));
 

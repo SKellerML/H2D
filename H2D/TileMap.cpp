@@ -1,8 +1,8 @@
 #include "TileMap.h"
-#include <glm.hpp>
-#include <gtc\matrix_transform.hpp>
-#include <gtc\type_ptr.hpp>
-#include <gtx\transform.hpp>
+#include <glm\glm.hpp>
+#include <glm\gtc\matrix_transform.hpp>
+#include <glm\gtc\type_ptr.hpp>
+#include <glm\gtx\transform.hpp>
 
 
 #include <fstream>
@@ -203,7 +203,7 @@ void TileMap::render()
 	b2Vec2 wp = BaseObject::getWorldPos();
 
 	tileProgram.bind();
-	tileProgram.setModelViewMatrix( glm::translate<GLfloat>(wp.x, wp.y, 0.f) );
+	tileProgram.setModelViewMatrix( glm::translate<GLfloat>(glm::vec3(wp.x, wp.y, 0.f) ) );
 	tileProgram.updateModelViewMatrix();
 	glBindVertexArray(mVAOID);
 

@@ -4,8 +4,8 @@
 
 #include "VertexPos2D.h"
 //#include "TexturedPolygon2D.h"
-#include <gtx\transform.hpp>
-#include <glm.hpp>
+#include <glm\gtx\transform.hpp>
+#include <glm\glm.hpp>
 #include <exception>
 
 
@@ -179,7 +179,7 @@ bool init()
 	ObjectList::loadObjectList();
 	BaseObject::loadSheets();
 	Item::loadItems();
-	Entity::loadEntities();
+	//Entity::loadEntities();
 	TileMap::loadTileMapBaseData();
 	PointLight::initLightRendering();
 
@@ -202,6 +202,83 @@ bool init()
 float gameTime=0.f;
 float actualTime=0.f;
 float deltat=0.f;
+
+//void render() {
+//
+//	if (isPaused)
+//	{
+//		if (!wasPaused)
+//		{
+//			wasPaused = true;
+//			TickCounter::pauseTime();
+//		}
+//		printf("Paised!\n");
+//		return;
+//	}
+//	else if (wasPaused)
+//	{
+//		TickCounter::resumeTime();
+//		wasPaused = false;
+//	}
+//	TickCounter::updateEngineTime();
+//
+//	changeState();
+//	
+//	
+//	
+//		actualTime=(float)glfwGetTime()*1000;
+//		deltat=actualTime-gameTime;
+//		//interpolation=SKIP_TICKS/(((float)glfwGetTime()*1000+SKIP_TICKS-nextGameTick)*1000);
+//		interpolation=(deltat/SKIP_TICKS);
+//	
+//	
+//		// Key Actions and Basic Update Stuff
+//		if(deltat > SKIP_TICKS)
+//		{
+//			nextGameTick+=SKIP_TICKS;
+//			//glfwSetTime(0.0);
+//			gameTime=(float)glfwGetTime()*1000;
+//			currentState->update();
+//			interpolation=0.f;
+//			update=true;
+//		}
+//		else	update=false;
+//		
+//		currentState->setInterpolation(interpolation);
+//	
+//	
+//		glClearColor(1.0f, 0.0f, 0.0f, 1.0f);
+//		glClear(GL_COLOR_BUFFER_BIT);
+//		
+//		// Render Background
+//		//setRenderingBuffer(1920,1080,frameBuffer);
+//	
+//	
+//		setRenderingBuffer(Engine::screenWidth(), Engine::screenHeight(), 0);
+//	
+//				Engine::textureProgram.bind();
+//				Engine::textureProgram.setProjectionMatrix(glm::ortho<GLfloat>(0.5f,1920.5f,1080.5f,0.5f,-1.f,0.f));
+//				Engine::textureProgram.updateProjectionMatrix();
+//				
+//				Engine::fontProgram.bind();
+//				Engine::fontProgram.setProjectionMatrix(glm::ortho<GLfloat>(0.5f,1920.5f,1080.5f,0.5f,-1.f,0.f));
+//				Engine::fontProgram.updateProjectionMatrix();
+//
+//	//setRenderingBuffer(1920,1080,frameBuffer);
+//
+//	//Engine::textureProgram.bind();
+//	//Engine::textureProgram.setProjectionMatrix(glm::ortho<GLfloat>(0.5f,1920.5f,1080.5f,0.5f,-1.f,0.f));
+//	//Engine::textureProgram.updateProjectionMatrix();
+//	//		
+//	//Engine::fontProgram.bind();
+//	//Engine::fontProgram.setProjectionMatrix(glm::ortho<GLfloat>(0.5f,1920.5f,1080.5f,0.5f,-1.f,0.f));
+//	//Engine::fontProgram.updateProjectionMatrix();
+//
+//	Texture2D n;
+//	n.loadTextureFromFile32("Graphics/intro.png");
+//	n.render(200.f, 200.f);
+//
+//}
 
 void render()
 {
@@ -235,6 +312,7 @@ void render()
 
 
 	changeState();
+
 
 
 	actualTime=(float)glfwGetTime()*1000;
@@ -343,11 +421,12 @@ void render()
 	/*
 		If paused - render sc Texture again and again until focus is gained again.
 	*/
+
 }
 
 void exit()
 {
-	Entity::deleteEntities();
+	//Entity::deleteEntities();
 	glDeleteFramebuffers(1,&frameBuffer);
 	glDeleteRenderbuffers(1,&renderBuf);
 }

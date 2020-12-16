@@ -1,5 +1,5 @@
 #include "InputMapper.h"
-
+#include <iostream>
 
 /*
 void KeyHandler::loadKeys()

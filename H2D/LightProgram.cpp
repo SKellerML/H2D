@@ -1,5 +1,5 @@
 #include "LightProgram.h"
-#include <gtc\type_ptr.hpp>
+#include <glm\gtc\type_ptr.hpp>
 
 LightProgram::LightProgram(void)
 {
@@ -72,11 +72,11 @@ bool LightProgram::loadProgram()
 	{
 		printf("TextureCoord is not a valid uniform\n");
 	}
-	mTextureColorLocation = glGetUniformLocation(mProgramID,"TextureColor");
-	if(mTextureColorLocation == -1)
-	{
-		printf("TextureColor is not a valid uniform\n");
-	}
+	//mTextureColorLocation = glGetUniformLocation(mProgramID,"TextureColor");
+	//if(mTextureColorLocation == -1)
+	//{
+	//	printf("TextureColor is not a valid uniform\n");
+	//}
 
 	mBackgroundLoc = glGetUniformLocation(mProgramID, "backgroundTexture");
 	if (mBackgroundLoc == -1)

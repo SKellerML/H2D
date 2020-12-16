@@ -1,5 +1,5 @@
 #include "TexturedPolygon2D.h"
-#include <gtc\type_ptr.hpp>
+#include <glm\gtc\type_ptr.hpp>
 
 TexturedPolygon2D::TexturedPolygon2D(void)
 {

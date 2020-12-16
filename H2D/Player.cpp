@@ -28,7 +28,7 @@ void Player::reInit()
 	movingToPos = 100 * body->GetPosition();
 
 	isMoving = false;
-	printf("ELLLLLLL: %i \n", *(int*)body->GetFixtureList()->GetUserData());
+	printf("ELLLLLLL: %i \n", *(int*)body->GetFixtureList()->GetUserData().pointer);
 }
 
 void Player::loadPlayer(std::ifstream* stream)

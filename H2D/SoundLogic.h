@@ -16,7 +16,7 @@ public:
 	bool ReportFixture(b2Fixture* fixture)
 	{
 		
-		int* fixtureType = (int*)fixture->GetUserData();
+		int* fixtureType = (int*)fixture->GetUserData().pointer;
 		if (fixtureType != nullptr && *fixtureType == GAMEOBJECTTYPE_PERSON) { fixtureVector.push_back(std::make_shared<b2Fixture>(*fixture));  }// printf("EEEEEEEEEEE %i \n", *fixtureType);
 
 		return true;

@@ -9,9 +9,9 @@
 #include "TickCounter.h"
 
 #include "TileObject.h"
-#include <glm.hpp>
-#include <gtc\type_ptr.hpp>
-#include <gtx\transform.hpp>
+#include <glm\glm.hpp>
+#include <glm\gtc\type_ptr.hpp>
+#include <glm\gtx\transform.hpp>
 
 #include <Box2D\Box2D.h>
 #include <vector>
@@ -36,7 +36,7 @@ class castcall : public b2RayCastCallback
 public:
 	castcall()	{ isHit = false; mfraction = 1.f; }
 
-	float32 ReportFixture(b2Fixture* fixture, const b2Vec2& point, const b2Vec2& normal, float32 fraction)
+	float ReportFixture(b2Fixture* fixture, const b2Vec2& point, const b2Vec2& normal, float fraction)
 	{
 		//TileObject* tt = (TileObject*)fixture->GetBody()->GetUserData();
 		//int val = *(int*)fixture->GetUserData();
@@ -56,7 +56,7 @@ public:
 	bool isHit;
 	b2Vec2 hitPoint;
 	b2Fixture* hf;
-	float32 mfraction;
+	float mfraction;
 };
 
 
@@ -66,7 +66,7 @@ public:
 
 	closeHitCall()	{ isHit = false; bod = nullptr; }
 
-	float32 ReportFixture(b2Fixture* fixture, const b2Vec2& point, const b2Vec2& normal, float32 fraction)
+	float ReportFixture(b2Fixture* fixture, const b2Vec2& point, const b2Vec2& normal, float fraction)
 	{
 		bod = fixture->GetBody();
 		isHit = true;
@@ -77,7 +77,7 @@ public:
 
 	bool isHit;
 	b2Body* bod;
-	float32 mfraction;
+	float mfraction;
 };
 
 class querycall : public b2QueryCallback
@@ -92,8 +92,8 @@ public:
 	std::vector<b2Fixture*> fixtureList;
 };
 
-bool SortVector(b2Vec3 i, b2Vec3 j);//	{ return (i.z < j.z) && (-b2_pi >(i.z - j.z) < b2_pi); }	// b2_pi > (i.z - j.z) < b2_pi;
-bool CompareVectorZ(b2Vec3 i, b2Vec3 j);//	{ return (i.z == j.z); }
+extern bool SortVector(b2Vec3 i, b2Vec3 j);//	{ return (i.z < j.z) && (-b2_pi >(i.z - j.z) < b2_pi); }	// b2_pi > (i.z - j.z) < b2_pi;
+extern bool CompareVectorZ(b2Vec3 i, b2Vec3 j);//	{ return (i.z == j.z); }
 
 class Mask
 {

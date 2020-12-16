@@ -23,9 +23,9 @@ public:
 	bool loadTextureFromPixels32();
 	bool loadTextureFromPixels8();
 	
-	bool loadTextureFromPixels32(GLuint* pixels, GLuint imgWidth, GLuint imgHeight,GLuint texWidth,GLuint texHeight);
+	bool loadTextureFromPixels32(GLuint* pixels, GLuint imgWidth, GLuint imgHeight);
 	
-	bool loadScreenshotFromPixels32(GLuint* pixels, GLuint imgWidth, GLuint imgHeight,GLuint texWidth,GLuint texHeight);
+	bool loadScreenshotFromPixels32(GLuint* pixels, GLuint imgWidth, GLuint imgHeight);
 	void createScreenTexture(int w,int h);
 	void changeScreenTextureSize();
 
