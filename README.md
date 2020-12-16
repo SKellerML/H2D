@@ -11,7 +11,7 @@ Implemented Features:
 - A* pathfinding
 - Rudimentary Level Editor
 
-As the project was abandomned due to time constraints at the time, though all listed features are implemented not all are finished.
+The project was abandomned due to time constraints at the time. Although all listed features are implemented, not all are finished.
 
 
 Libraries used:
