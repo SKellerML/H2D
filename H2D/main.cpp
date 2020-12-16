@@ -10,8 +10,6 @@
 
 #include "StateManagement.h"
 
-#include <IL\il.h>
-#include <IL\ilu.h>
 //Freetype
 //#include <ft2build.h>
 //#include FT_FREETYPE_H
@@ -90,16 +88,6 @@ int main(void)
 	//glEnable(GL_BLEND);
 	//glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	//siehe Game.cpp
-
-	//Initialize DevIL
-	ilInit();
-	iluInit();
-	ilClearColor(255,255,255,000);
-	ILenum ilError = ilGetError();
-    if( ilError != IL_NO_ERROR )
-    {
-        printf( "Error initializing DevIL! %s\n", iluErrorString( ilError ) );
-    }
 
 	if(!Engine::isStarted())
 	{

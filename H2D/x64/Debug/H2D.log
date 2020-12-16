@@ -1,0 +1,6 @@
+﻿  main.cpp
+D:\CPP\H2D2000\H2D\H2D\BaseObject.h(81,32): warning C4244: '=': conversion from 'float' to 'GLuint', possible loss of data
+D:\CPP\H2D2000\H2D\H2D\BaseObject.h(81,56): warning C4244: '=': conversion from 'float' to 'GLuint', possible loss of data
+D:\CPP\H2D2000\H2D\H2D\main.cpp(31,66): warning C4244: 'argument': conversion from 'GLfloat' to 'short', possible loss of data
+D:\CPP\H2D2000\H2D\H2D\main.cpp(31,43): warning C4244: 'argument': conversion from 'GLfloat' to 'short', possible loss of data
+  H2D.vcxproj -> D:\CPP\H2D2000\H2D\x64\Debug\H2D.exe

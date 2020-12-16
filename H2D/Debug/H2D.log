@@ -1,89 +1,146 @@
-﻿Build started 02/03/2015 19:15:46.
-     1>Project "C:\Users\R1\documents\visual studio 2013\Projects\H2D\H2D\H2D.vcxproj" on node 2 (Build target(s)).
-     1>ClCompile:
-         D:\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _LIB /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt Entity.cpp
-         Entity.cpp
-     1>c:\users\r1\documents\visual studio 2013\projects\h2d\h2d\baseobject.h(81): warning C4244: '=' : conversion from 'float' to 'GLuint', possible loss of data
-     1>c:\users\r1\documents\visual studio 2013\projects\h2d\h2d\entity.cpp(13): warning C4244: 'argument' : conversion from 'lua_Number' to 'float32', possible loss of data
-     1>c:\users\r1\documents\visual studio 2013\projects\h2d\h2d\entity.cpp(72): warning C4244: 'argument' : conversion from 'int' to 'GLfloat', possible loss of data
-       Link:
-         D:\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\R1\documents\visual studio 2013\Projects\H2D\Debug\H2D.exe" /INCREMENTAL /NOLOGO Box2D.lib glew32.lib OpenGL32.lib DevIL.lib ILU.lib ILUT.lib lua51.lib glfw3.lib irrKlang.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\R1\documents\visual studio 2013\Projects\H2D\Debug\H2D.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\R1\documents\visual studio 2013\Projects\H2D\Debug\H2D.lib" /MACHINE:X86 Debug\Animation.obj
-         Debug\Audio.obj
-         Debug\BaseObject.obj
-         Debug\BorderPolygon2D.obj
-         Debug\ComplexPlainParticleProgram.obj
-         Debug\ComplexTexturedParticleProgram.obj
-         Debug\Door.obj
-         Debug\Editor.obj
-         Debug\EditorMapper.obj
-         Debug\Effect.obj
-         Debug\EffectList.obj
-         Debug\Element2D.obj
-         Debug\ElementProgram.obj
-         Debug\Engine.obj
-         Debug\Explosion.obj
-         Debug\Floor.obj
-         Debug\Font2D.obj
-         Debug\FontObject.obj
-         Debug\FontProgram2D.obj
-         Debug\fpsCounter.obj
-         Debug\Game.obj
-         Debug\GameMapper.obj
-         Debug\GameState.obj
-         Debug\GUI.obj
-         Debug\GUIButton.obj
-         Debug\GUIDropdownList.obj
-         Debug\GUIImageElement.obj
-         Debug\GUILabel.obj
-         Debug\GUIMap.obj
-         Debug\GUIMapItem.obj
-         Debug\GUIPanel.obj
-         Debug\GUISlider.obj
-         Debug\GUITextfield.obj
-         Debug\InputMapper.obj
-         Debug\Item.obj
-         Debug\Level.obj
-         Debug\LevelContactListener.obj
-         Debug\LightProgram.obj
-         Debug\main.obj
-         Debug\Mask.obj
-         Debug\MaskProgram.obj
-         Debug\ObjectBase.obj
-         Debug\ObjectBasePolymorphism.obj
-         Debug\ObjectList.obj
-         Debug\particleObject.obj
-         Debug\ParticleProgram.obj
-         Debug\Person.obj
-         Debug\Player.obj
-         Debug\pObject.obj
-         Debug\Light.obj
-         Debug\RayCastCallbacks.obj
-         Debug\RigidBody.obj
-         Debug\ShaderProgram.obj
-         Debug\SimpleParticleEmitter.obj
-         Debug\Sound.obj
-         Debug\Entity.obj
-         Debug\SoundLogic.obj
-         Debug\SpriteSheet2D.obj
-         Debug\Square2D.obj
-         Debug\StateManagement.obj
-         Debug\StateMenu.obj
-         Debug\test.obj
-         Debug\Textobject.obj
-         Debug\Texture2D.obj
-         Debug\TexturedPolygon2D.obj
-         Debug\TickCounter.obj
-         Debug\TileMap.obj
-         Debug\TileProgram.obj
-         Debug\tinyxml2.obj
-         Debug\Wall.obj
-         Debug\Weapon.obj
-         Debug\WorldObject.obj
-         Debug\ZTestState.obj
-     1>LINK : warning LNK4098: defaultlib 'MSVCRT' conflicts with use of other libs; use /NODEFAULTLIB:library
-         H2D.vcxproj -> C:\Users\R1\documents\visual studio 2013\Projects\H2D\Debug\H2D.exe
-     1>Done Building Project "C:\Users\R1\documents\visual studio 2013\Projects\H2D\H2D\H2D.vcxproj" (Build target(s)).
-
-Build succeeded.
-
-Time Elapsed 00:00:02.66
+﻿  Animation.cpp
+D:\CPP\H2D2000\H2D\H2D\OpenGLH.h(3,10): fatal error C1083: Cannot open include file: 'GL/glew.h': No such file or directory
+  Audio.cpp
+D:\CPP\H2D2000\H2D\H2D\OpenGLH.h(3,10): fatal error C1083: Cannot open include file: 'GL/glew.h': No such file or directory
+  BaseObject.cpp
+D:\CPP\H2D2000\H2D\H2D\OpenGLH.h(3,10): fatal error C1083: Cannot open include file: 'GL/glew.h': No such file or directory
+  BorderPolygon2D.cpp
+D:\CPP\H2D2000\H2D\H2D\OpenGLH.h(3,10): fatal error C1083: Cannot open include file: 'GL/glew.h': No such file or directory
+  ComplexPlainParticleProgram.cpp
+D:\CPP\H2D2000\H2D\H2D\OpenGLH.h(3,10): fatal error C1083: Cannot open include file: 'GL/glew.h': No such file or directory
+  ComplexTexturedParticleProgram.cpp
+D:\CPP\H2D2000\H2D\H2D\OpenGLH.h(3,10): fatal error C1083: Cannot open include file: 'GL/glew.h': No such file or directory
+  Door.cpp
+  Editor.cpp
+D:\CPP\H2D2000\H2D\H2D\OpenGLH.h(3,10): fatal error C1083: Cannot open include file: 'GL/glew.h': No such file or directory
+  EditorMapper.cpp
+D:\CPP\H2D2000\H2D\H2D\OpenGLH.h(3,10): fatal error C1083: Cannot open include file: 'GL/glew.h': No such file or directory
+  Effect.cpp
+D:\CPP\H2D2000\H2D\H2D\OpenGLH.h(3,10): fatal error C1083: Cannot open include file: 'GL/glew.h': No such file or directory
+  EffectList.cpp
+D:\CPP\H2D2000\H2D\H2D\OpenGLH.h(3,10): fatal error C1083: Cannot open include file: 'GL/glew.h': No such file or directory
+  Element2D.cpp
+D:\CPP\H2D2000\H2D\H2D\OpenGLH.h(3,10): fatal error C1083: Cannot open include file: 'GL/glew.h': No such file or directory
+  ElementProgram.cpp
+D:\CPP\H2D2000\H2D\H2D\OpenGLH.h(3,10): fatal error C1083: Cannot open include file: 'GL/glew.h': No such file or directory
+  Engine.cpp
+D:\CPP\H2D2000\H2D\H2D\OpenGLH.h(3,10): fatal error C1083: Cannot open include file: 'GL/glew.h': No such file or directory
+  Explosion.cpp
+D:\CPP\H2D2000\H2D\H2D\OpenGLH.h(3,10): fatal error C1083: Cannot open include file: 'GL/glew.h': No such file or directory
+  Floor.cpp
+  Font2D.cpp
+D:\CPP\H2D2000\H2D\H2D\OpenGLH.h(3,10): fatal error C1083: Cannot open include file: 'GL/glew.h': No such file or directory
+  FontObject.cpp
+D:\CPP\H2D2000\H2D\H2D\OpenGLH.h(3,10): fatal error C1083: Cannot open include file: 'GL/glew.h': No such file or directory
+  FontProgram2D.cpp
+D:\CPP\H2D2000\H2D\H2D\OpenGLH.h(3,10): fatal error C1083: Cannot open include file: 'GL/glew.h': No such file or directory
+  fpsCounter.cpp
+D:\CPP\H2D2000\H2D\H2D\OpenGLH.h(3,10): fatal error C1083: Cannot open include file: 'GL/glew.h': No such file or directory
+  Generating Code...
+  Compiling...
+  Game.cpp
+D:\CPP\H2D2000\H2D\H2D\OpenGLH.h(3,10): fatal error C1083: Cannot open include file: 'GL/glew.h': No such file or directory
+  GameMapper.cpp
+D:\CPP\H2D2000\H2D\H2D\OpenGLH.h(3,10): fatal error C1083: Cannot open include file: 'GL/glew.h': No such file or directory
+  GameState.cpp
+D:\CPP\H2D2000\H2D\H2D\OpenGLH.h(3,10): fatal error C1083: Cannot open include file: 'GL/glew.h': No such file or directory
+  GUI.cpp
+D:\CPP\H2D2000\H2D\H2D\OpenGLH.h(3,10): fatal error C1083: Cannot open include file: 'GL/glew.h': No such file or directory
+  GUIButton.cpp
+D:\CPP\H2D2000\H2D\H2D\OpenGLH.h(3,10): fatal error C1083: Cannot open include file: 'GL/glew.h': No such file or directory
+  GUIDropdownList.cpp
+D:\CPP\H2D2000\H2D\H2D\OpenGLH.h(3,10): fatal error C1083: Cannot open include file: 'GL/glew.h': No such file or directory
+  GUIImageElement.cpp
+D:\CPP\H2D2000\H2D\H2D\OpenGLH.h(3,10): fatal error C1083: Cannot open include file: 'GL/glew.h': No such file or directory
+  GUILabel.cpp
+D:\CPP\H2D2000\H2D\H2D\OpenGLH.h(3,10): fatal error C1083: Cannot open include file: 'GL/glew.h': No such file or directory
+  GUIMap.cpp
+D:\CPP\H2D2000\H2D\H2D\OpenGLH.h(3,10): fatal error C1083: Cannot open include file: 'GL/glew.h': No such file or directory
+  GUIMapItem.cpp
+D:\CPP\H2D2000\H2D\H2D\OpenGLH.h(3,10): fatal error C1083: Cannot open include file: 'GL/glew.h': No such file or directory
+  GUIPanel.cpp
+D:\CPP\H2D2000\H2D\H2D\OpenGLH.h(3,10): fatal error C1083: Cannot open include file: 'GL/glew.h': No such file or directory
+  GUISlider.cpp
+D:\CPP\H2D2000\H2D\H2D\OpenGLH.h(3,10): fatal error C1083: Cannot open include file: 'GL/glew.h': No such file or directory
+  GUITextfield.cpp
+D:\CPP\H2D2000\H2D\H2D\OpenGLH.h(3,10): fatal error C1083: Cannot open include file: 'GL/glew.h': No such file or directory
+  InputMapper.cpp
+D:\CPP\H2D2000\H2D\H2D\OpenGLH.h(3,10): fatal error C1083: Cannot open include file: 'GL/glew.h': No such file or directory
+  Item.cpp
+D:\CPP\H2D2000\H2D\H2D\OpenGLH.h(3,10): fatal error C1083: Cannot open include file: 'GL/glew.h': No such file or directory
+  Level.cpp
+D:\CPP\H2D2000\H2D\H2D\OpenGLH.h(3,10): fatal error C1083: Cannot open include file: 'GL/glew.h': No such file or directory
+  LevelContactListener.cpp
+D:\CPP\H2D2000\H2D\H2D\LevelContactListener.h(4,10): fatal error C1083: Cannot open include file: 'Box2D\Box2D.h': No such file or directory
+  LightProgram.cpp
+D:\CPP\H2D2000\H2D\H2D\OpenGLH.h(3,10): fatal error C1083: Cannot open include file: 'GL/glew.h': No such file or directory
+  main.cpp
+D:\CPP\H2D2000\H2D\H2D\OpenGLH.h(3,10): fatal error C1083: Cannot open include file: 'GL/glew.h': No such file or directory
+  Mask.cpp
+D:\CPP\H2D2000\H2D\H2D\OpenGLH.h(3,10): fatal error C1083: Cannot open include file: 'GL/glew.h': No such file or directory
+  Generating Code...
+  Compiling...
+  MaskProgram.cpp
+D:\CPP\H2D2000\H2D\H2D\OpenGLH.h(3,10): fatal error C1083: Cannot open include file: 'GL/glew.h': No such file or directory
+  ObjectBase.cpp
+  ObjectBasePolymorphism.cpp
+D:\CPP\H2D2000\H2D\H2D\OpenGLH.h(3,10): fatal error C1083: Cannot open include file: 'GL/glew.h': No such file or directory
+  ObjectList.cpp
+D:\CPP\H2D2000\H2D\H2D\OpenGLH.h(3,10): fatal error C1083: Cannot open include file: 'GL/glew.h': No such file or directory
+  particleObject.cpp
+D:\CPP\H2D2000\H2D\H2D\OpenGLH.h(3,10): fatal error C1083: Cannot open include file: 'GL/glew.h': No such file or directory
+  ParticleProgram.cpp
+D:\CPP\H2D2000\H2D\H2D\OpenGLH.h(3,10): fatal error C1083: Cannot open include file: 'GL/glew.h': No such file or directory
+  Person.cpp
+D:\CPP\H2D2000\H2D\H2D\OpenGLH.h(3,10): fatal error C1083: Cannot open include file: 'GL/glew.h': No such file or directory
+  Player.cpp
+D:\CPP\H2D2000\H2D\H2D\OpenGLH.h(3,10): fatal error C1083: Cannot open include file: 'GL/glew.h': No such file or directory
+  pObject.cpp
+D:\CPP\H2D2000\H2D\H2D\OpenGLH.h(3,10): fatal error C1083: Cannot open include file: 'GL/glew.h': No such file or directory
+  Light.cpp
+D:\CPP\H2D2000\H2D\H2D\OpenGLH.h(3,10): fatal error C1083: Cannot open include file: 'GL/glew.h': No such file or directory
+  RayCastCallbacks.cpp
+D:\CPP\H2D2000\H2D\H2D\OpenGLH.h(3,10): fatal error C1083: Cannot open include file: 'GL/glew.h': No such file or directory
+  RigidBody.cpp
+D:\CPP\H2D2000\H2D\H2D\OpenGLH.h(3,10): fatal error C1083: Cannot open include file: 'GL/glew.h': No such file or directory
+  ShaderProgram.cpp
+D:\CPP\H2D2000\H2D\H2D\OpenGLH.h(3,10): fatal error C1083: Cannot open include file: 'GL/glew.h': No such file or directory
+  SimpleParticleEmitter.cpp
+D:\CPP\H2D2000\H2D\H2D\OpenGLH.h(3,10): fatal error C1083: Cannot open include file: 'GL/glew.h': No such file or directory
+  Sound.cpp
+D:\CPP\H2D2000\H2D\H2D\OpenGLH.h(3,10): fatal error C1083: Cannot open include file: 'GL/glew.h': No such file or directory
+  Entity.cpp
+D:\CPP\H2D2000\H2D\H2D\OpenGLH.h(3,10): fatal error C1083: Cannot open include file: 'GL/glew.h': No such file or directory
+  SoundLogic.cpp
+D:\CPP\H2D2000\H2D\H2D\OpenGLH.h(3,10): fatal error C1083: Cannot open include file: 'GL/glew.h': No such file or directory
+  SpriteSheet2D.cpp
+D:\CPP\H2D2000\H2D\H2D\OpenGLH.h(3,10): fatal error C1083: Cannot open include file: 'GL/glew.h': No such file or directory
+  Square2D.cpp
+D:\CPP\H2D2000\H2D\H2D\OpenGLH.h(3,10): fatal error C1083: Cannot open include file: 'GL/glew.h': No such file or directory
+  StateManagement.cpp
+D:\CPP\H2D2000\H2D\H2D\OpenGLH.h(3,10): fatal error C1083: Cannot open include file: 'GL/glew.h': No such file or directory
+  Generating Code...
+  Compiling...
+  StateMenu.cpp
+  test.cpp
+  Textobject.cpp
+D:\CPP\H2D2000\H2D\H2D\OpenGLH.h(3,10): fatal error C1083: Cannot open include file: 'GL/glew.h': No such file or directory
+  Texture2D.cpp
+D:\CPP\H2D2000\H2D\H2D\OpenGLH.h(3,10): fatal error C1083: Cannot open include file: 'GL/glew.h': No such file or directory
+  TexturedPolygon2D.cpp
+D:\CPP\H2D2000\H2D\H2D\OpenGLH.h(3,10): fatal error C1083: Cannot open include file: 'GL/glew.h': No such file or directory
+  TickCounter.cpp
+D:\CPP\H2D2000\H2D\H2D\OpenGLH.h(3,10): fatal error C1083: Cannot open include file: 'GL/glew.h': No such file or directory
+  TileMap.cpp
+D:\CPP\H2D2000\H2D\H2D\OpenGLH.h(3,10): fatal error C1083: Cannot open include file: 'GL/glew.h': No such file or directory
+  TileProgram.cpp
+D:\CPP\H2D2000\H2D\H2D\OpenGLH.h(3,10): fatal error C1083: Cannot open include file: 'GL/glew.h': No such file or directory
+  tinyxml2.cpp
+  Wall.cpp
+D:\CPP\H2D2000\H2D\H2D\OpenGLH.h(3,10): fatal error C1083: Cannot open include file: 'GL/glew.h': No such file or directory
+  Weapon.cpp
+D:\CPP\H2D2000\H2D\H2D\OpenGLH.h(3,10): fatal error C1083: Cannot open include file: 'GL/glew.h': No such file or directory
+  WorldObject.cpp
+  ZTestState.cpp
+D:\CPP\H2D2000\H2D\H2D\OpenGLH.h(3,10): fatal error C1083: Cannot open include file: 'GL/glew.h': No such file or directory
+  Generating Code...
