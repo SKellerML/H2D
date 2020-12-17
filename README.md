@@ -19,5 +19,6 @@ Libraries used:
 - GLEW32
 - FreeImage (Replaced DevIL)
 - irrKlang
+- Box2D
 
 Old project of mine used to explore OpenGL and Game Development.
